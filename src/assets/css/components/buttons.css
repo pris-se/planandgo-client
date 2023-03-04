@@ -1,0 +1,49 @@
+@tailwind components;
+
+.btn {
+    position: relative;
+    border: 1px solid transparent;
+    color: var(--defaultTextColor);
+    font-size: var(--defaultFontSize);
+    line-height: var(--defaultLineHeight);
+    background-color: transparent;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+    text-align: center;
+}
+.btn:hover {
+    opacity: .8;
+}
+.btn--default {
+    background-color: var(--defaultTextColor); 
+    border-color: var(--defaultTextColor);
+    color: var(--white);   
+}
+.btn--default:hover {
+    background-color: transparent;  
+    color: var(--defaultTextColor);  
+}
+.btn--primary {
+    background-color: var(--primary); 
+    border-color: var(--primary);
+    color: var(--white);  
+    padding: 13px 16px;  
+}
+.btn--primary:hover {
+    border: 1px solid var(--primary);
+    background-color: transparent;  
+    color: var(--primary);  
+}
+
+
+@layer components {
+    .btn-loader {
+        margin: -8px;
+        @apply animate-spin;
+    }
+  }

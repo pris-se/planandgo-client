@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind utilities;
+
+:root {
+    --defaultTextColor: #0F0F0F;
+    --white: #F5F5F5;
+    --primary: #4F26E9;
+    --secondary: #c6c2fb;
+    --success: #046865;
+    --warning: yellow;
+    --danger: #FC0000;
+    --gray-20: #8D8D8D;
+    --gray-10: #F2F2F2;
+    --input-bg-danger:#F7E8E8;
+    --fontFamily: 'Open Sans', sans-serif;
+    --defaultFontSize: 13px;
+    --defaultLineHeight: 18px;
+    --h1Size: 64px;
+    --h2Size: 22px;
+    --h3Size: 24px;
+    --h4Size: 18px;
+    --h5Size: 10px;
+    --header-fixed-padding: 86px;
+    --defaultRaduis: 6px
+}
+#root {
+    height: 100%;
+}
+body {
+    font-size: 100%;
+    font-weight: normal;
+    font-family: var(--fontFamily);
+    font-weight: 400;
+    font-size: var(--defaultFontSize);
+    line-height: var(--defaultLineHeight);
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    color: var(--defaultTextColor);
+    background-color: var(--white);
+}
+
+body.lock {
+    overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: 600;
+    font-family: var(--fontFamily);
+    line-height: 125%;
+}
+
+h1 {
+    font-size: var(--h1Size);
+}
+
+h2 {
+    font-size: var(--h2Size);
+}
+
+h3 {
+    font-size: var(--h3Size);
+}
+
+h4 {
+    font-size: var(--h4Size);
+}
+
+h5 {
+    font-size: var(--h5Size);
+}
+
+.radius {
+    border-radius: var(--defaultRaduis);
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+}
+.header-fixed {
+    padding-top: var(--header-fixed-padding);
+}
+.content {
+    flex: auto;
+}
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 15px;
+}
+
+/* width */
+*::-webkit-scrollbar {
+    height: 4px;
+    width: 10px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+    background: var(--white);
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+    background: var(--gray-20);
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-10);
+}
