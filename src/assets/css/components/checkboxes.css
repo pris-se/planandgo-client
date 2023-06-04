@@ -1,0 +1,71 @@
+.switch {
+    --button-width: 100%;
+    --button-height: 44px;
+    --color-grey: var(--white);
+    --color-green: var(--primary);
+    display: flex;
+    cursor: pointer;
+   }
+   
+   .slider {
+    display: flex;
+    width: var(--button-width);
+    height: var(--button-height);
+    background-color: var(--color-grey);
+    border-radius: var(--defaultRaduis);
+    border: 1px solid var(--color-green);
+    position: relative;
+    transition: 0.4s all linear;
+    box-sizing: content-box;
+   }
+   
+   .slider::after {
+    content: "";
+    display: inline-flex;
+    width: 50%;
+    top: 0;
+    left: 0;
+    height: var(--button-height);
+    background-color: var(--color-green);
+    border-radius: var(--defaultRaduis);
+    border: 1px solid var(--color-green);
+    position: absolute;
+    transition: 0.4s all linear;
+   }
+   
+   .switch input[type="checkbox"]:checked + .slider::after {
+    transform: translateX(100%);
+   }
+   
+   .switch input[type="checkbox"] {
+    display: none;
+   }
+   
+   .switch input[type="checkbox"]:active + .slider::after {
+    background-color: var(--color-green);
+   }
+   
+   .switch input[type="checkbox"]:checked:active + .slider .slider::after {
+   }
+   .switch input[type="checkbox"]:checked + .slider .switch-value:last-child {
+        color: var(--white);
+   }
+   .switch input[type="checkbox"] + .slider .switch-value:first-child {
+        color: var(--white);
+   }
+   .switch input[type="checkbox"]:checked + .slider .switch-value:first-child {
+        color: var(--defaultTextColor);
+   }
+
+   .switch-value {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-weight: 600;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+   }
+   
