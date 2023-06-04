@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import './assets/css/reset.css'
+<<<<<<< HEAD
 import './assets/css/bootstrap-grid.css'
+=======
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 import './assets/css/global.css'
 import './assets/css/components/components.css'
 import './assets/css/main.css'

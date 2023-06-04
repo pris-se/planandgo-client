@@ -3,6 +3,7 @@
 
 :root {
     --defaultTextColor: #0F0F0F;
+<<<<<<< HEAD
     --bgColor: #F5F5F5;
     --white: #F5F5F5;
     --primary: #4F26E9;
@@ -12,6 +13,15 @@
     --danger: #FC0000;
     --gray-30: #8D8D8D;
     --gray-20: #E1E1E1;
+=======
+    --white: #F5F5F5;
+    --primary: #4F26E9;
+    --secondary: #c6c2fb;
+    --success: #046865;
+    --warning: yellow;
+    --danger: #FC0000;
+    --gray-20: #8D8D8D;
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
     --gray-10: #F2F2F2;
     --input-bg-danger:#F7E8E8;
     --fontFamily: 'Open Sans', sans-serif;
@@ -19,20 +29,31 @@
     --defaultLineHeight: 18px;
     --h1Size: 64px;
     --h2Size: 22px;
+<<<<<<< HEAD
     --h3Size: 15px;
     --h4Size: 13px;
     --h5Size: 10px;
     --header-fixed-padding: 88px;
     --defaultRaduis: 6px;
     --shadows: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+=======
+    --h3Size: 24px;
+    --h4Size: 18px;
+    --h5Size: 10px;
+    --header-fixed-padding: 86px;
+    --defaultRaduis: 6px
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 }
 #root {
     height: 100%;
 }
+<<<<<<< HEAD
 body.theme-dark {
     --bgColor: #0F0F0F;
 }
 
+=======
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 body {
     font-size: 100%;
     font-weight: normal;
@@ -44,8 +65,14 @@ body {
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     color: var(--defaultTextColor);
+<<<<<<< HEAD
     background-color: var(--bgColor);
 }
+=======
+    background-color: var(--white);
+}
+
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 body.lock {
     overflow: hidden;
 }
@@ -105,10 +132,15 @@ h5 {
     padding: 0 15px;
 }
 
+<<<<<<< HEAD
+=======
+/* width */
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 *::-webkit-scrollbar {
     height: 4px;
     width: 10px;
 }
+<<<<<<< HEAD
 *::-webkit-scrollbar-track {
     background: var(--white);
 }
@@ -117,4 +149,20 @@ h5 {
 }
 *::-webkit-scrollbar-thumb:hover {
     background: var(--gray-20);
+=======
+
+/* Track */
+*::-webkit-scrollbar-track {
+    background: var(--white);
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+    background: var(--gray-20);
+}
+
+/* Handle on hover */
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-10);
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 }

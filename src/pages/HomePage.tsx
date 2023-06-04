@@ -22,6 +22,7 @@ export const HomePage = () => {
   }
 
   return (
+<<<<<<< HEAD
     <section className='section'>
       <div className="container">
         <div className='max-w-[360px] mx-auto'>
@@ -29,5 +30,10 @@ export const HomePage = () => {
         </div>
       </div>
     </section>
+=======
+    <>
+      <UserCard user={user} />
+    </>
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
   )
 }

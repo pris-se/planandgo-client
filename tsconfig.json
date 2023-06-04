@@ -20,8 +20,14 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+<<<<<<< HEAD
 // "include": ["src", "src/custom.d.ts"]
 "include": ["src", "custom.d.ts"]
 
 
+=======
+  "include": [
+    "src"
+  ]
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 export const tagsFilter = (text:string) => {    
     const array = text.trim().toLowerCase().split(' ')
@@ -27,4 +28,11 @@ export const addTagLink = (text: string) => {
         }
     })
     return textWithLinks
+=======
+export const tagsFilter = (text:string) => {    
+    const array = text.trim().toLowerCase().split(' ')    
+    const hashtags = array.filter(e => e.startsWith("#") && e.length > 1)    
+    const uniqueHastags = hashtags.filter((e, i, array) => array.indexOf(e) === i);
+    return uniqueHastags
+>>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 }
