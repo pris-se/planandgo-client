@@ -8,7 +8,6 @@ module.exports = {
     container: false,
   },
   theme: {
-<<<<<<< HEAD
     extend: {
       animation: {
         'spin-slow': 'spin 3s linear infinite',
@@ -28,9 +27,6 @@ module.exports = {
       "gray-10": "#F2F2F2",
       "input-bg-danger":"#F7E8E8",
     }
-=======
-    extend: {},
->>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
   },
   plugins: [],
 }

@@ -37,8 +37,8 @@ export const LoginPage = () => {
   return (
         <form className="mt-8" action="#" method="POST" onSubmit={(e) => e.preventDefault()}>
           <div className="rounded-md shadow-sm mb-5">
-            <Input handler={e => setEmail(e.currentTarget.value)} title="Email" type="email" />
-            <Input handler={e => setPassword(e.currentTarget.value)} title="Password" type="password" />
+            <Input handler={e => setEmail(e.currentTarget.value)} value={email} title="Email" type="email" />
+            <Input handler={e => setPassword(e.currentTarget.value)} value={password} title="Password" type="password" />
           </div>
           {
             !isLoading

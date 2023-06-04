@@ -75,7 +75,6 @@ input::-ms-clear {
     display: none;
 }
 
-<<<<<<< HEAD
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -88,8 +87,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-=======
->>>>>>> d3daaf74810b482b9cbcd43d6913457704477bfc
 button {
     cursor: pointer;
 }
