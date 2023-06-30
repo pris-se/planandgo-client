@@ -9,7 +9,7 @@ import { AuthPage } from "./AuthPage/AuthPage";
 import { SignIn } from "./AuthPage/SignIn";
 import { SignUp } from "./AuthPage/SignUp";
 import { Loader } from "../components/Loader";
-import { MainLayout } from "../layouts/MainLayout";
+import { MainLayout } from "../Layouts/MainLayout";
 import { AllTasksPage } from "./TaskPage/AllTasksPage";
 import { CreateTaskPage } from "./TaskPage/CreateTaskPage";
 import { EditTaskPage } from "./TaskPage/EditTaskPage";
