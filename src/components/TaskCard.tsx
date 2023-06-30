@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Task } from "../models/Task.model";
+import { ITask } from "../models/Task.model";
 import { checkIsAuth } from "../redux/features/auth/authSlice";
 import { removeTask } from "../redux/features/task/thunks/taskThunks";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -12,11 +12,12 @@ import { formatTime } from "../utils/time";
 
 import { ReactComponent as BinIcon } from "../assets/img/bin.svg";
 import { ReactComponent as PenIcon } from "../assets/img/pen.svg";
+import placeholderImage from "../assets/img/placeholder.png"
 import { addTagLink } from "../utils/tagsFilter";
 import { Modal } from "./modals/Modal";
 
 interface Props {
-  task: Task;
+  task: ITask;
 }
 
 export const TaskCard = ({ task }: Props) => {
@@ -54,7 +55,7 @@ export const TaskCard = ({ task }: Props) => {
                 src={
                   task?.img
                     ? process.env.REACT_APP_BASE_IMAGE_URL + task.img
-                    : "/img/placeholder.png"
+                    : placeholderImage
                 }
                 alt={task?.title}
               />
@@ -66,6 +67,7 @@ export const TaskCard = ({ task }: Props) => {
           <p className="card-desc">{addTagLink(task.description).map((str, idx) => {
             if(str?.link) {
               return <Link className="tag" to={{
+                pathname: "/tasks",
                 search: `tags=${str.link}`
               }} key={idx}>{str.string} </Link> 
             } else {

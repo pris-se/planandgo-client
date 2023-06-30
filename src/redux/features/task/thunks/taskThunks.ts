@@ -61,3 +61,16 @@ export const removeTask = createAsyncThunk(
         }
     }
 )
+
+export const generateTaskImage = createAsyncThunk(
+    'task/generateTaskImage',
+
+    async (params : FormData) => {
+        try {
+            const { data } = await axios.post('/api/generate', params)
+            return data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)

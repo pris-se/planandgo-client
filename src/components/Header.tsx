@@ -4,8 +4,10 @@ import { NavLink } from 'react-router-dom'
 import { checkIsAuth, logout } from '../redux/features/auth/authSlice'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { Button } from './ui/Button'
-import { ReactComponent as LogoutIcon } from '../assets/img/logout.svg'
 import { useOnClickOutside } from "../hooks/useClickOutside"
+
+import { ReactComponent as LogoutIcon } from '../assets/img/logout.svg'
+import { ReactComponent as Logo } from "../assets/img/logo.svg"
 
 export const Header = () => {
   const [open, setOpen] = useState(false)
@@ -42,7 +44,7 @@ useEffect(() => {
       <div className="container">
         <div className="header__body">
           <Link to='/' className="header__logo">
-            <img src="../../img/logo.svg" alt="" />
+            <Logo />
           </Link>
           {
             isAuth &&

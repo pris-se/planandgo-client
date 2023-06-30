@@ -13,12 +13,5 @@ declare module "*.svg" {
 //   export const path;
 // }
 
-declare module "*.jpg" {
-  const path: string;
-  export const path;
-}
-
-declare module "*.png" {
-  const path: string;
-  export const path;
-}
+declare module "*.jpg"
+declare module "*.png";

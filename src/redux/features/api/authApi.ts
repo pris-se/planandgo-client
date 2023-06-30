@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Task } from "../../../models/Task.model";
 import { User } from "../../../models/User.model";
 
 export const userApi = createApi({

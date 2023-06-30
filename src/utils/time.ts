@@ -10,10 +10,10 @@ export const calcDuration = (startTime:string, endTime:string) => {
 
 export const formatTime = (time:number):string => {
     if(time <= 60) {
-        return time.toString() + "min";
+        return time.toString() + " min";
     }
     const hours = Math.floor(time / 60)
     
     const minutes = time % 60
-    return hours.toString() +  "h " + minutes.toString() + "min";
+    return hours.toString() +  "h " + minutes.toString() + " min";
 }

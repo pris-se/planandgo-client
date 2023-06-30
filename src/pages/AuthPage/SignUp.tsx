@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Buffer } from '../../components/ui/Buffer'
+import { Spinner } from '../../components/ui/Spinner'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { registration } from '../../redux/features/auth/authSlice'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { ReactComponent as ImageUploadIcon }   from '../../assets/img/image-upload.svg'
+import { ReactComponent as ImageUploadIcon } from '../../assets/img/image-upload.svg'
 
-export const RegisterPage = () => {
+export const SignUp = () => {
 
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
@@ -66,12 +66,11 @@ export const RegisterPage = () => {
                 <div className="flex text-sm text-gray-600">
                   <label
                     htmlFor="file-upload"
-                    className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                    className="relative cursor-pointer"
                   >
                     <span>Upload a file</span>
                     <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={e => setImage(e.target?.files?.[0] || '')} />
                   </label>
-                  <p className="pl-1">or drag and drop</p>
                 </div>
                 <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
               </div>
@@ -81,8 +80,8 @@ export const RegisterPage = () => {
       </div>
       {
         !isLoading
-          ? <Button title="Sign in" onClick={submitHandler} />
-          : <Button children={<Buffer />} onClick={submitHandler} />
+          ? <Button onClick={submitHandler} >Sign in</Button>
+          : <Button children={<Spinner />} onClick={submitHandler} />
       }
     </form>
   )

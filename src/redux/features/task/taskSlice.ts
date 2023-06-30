@@ -1,17 +1,17 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Task } from '../../../models/Task.model';
+import { ITask } from '../../../models/Task.model';
 import axios from '../../../utils/axios'
 
 
 interface PayloadType {
-    task: Task|null,
-	tasks: Task[]|[]
+    task: ITask|null,
+	tasks: ITask[]|[]
 	message: string
 }
 
 interface AuthState {
-    task: Task|null;
-    tasks: Task[]|[];
+    task: ITask|null;
+    tasks: ITask[]|[];
     isLoading: boolean;
     status: string|null;
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 
-export const Buffer = () => {
+export const Spinner = () => {
   return (
-    // <img className="animate-spin" src="./img/buffer.svg" alt="buffering..." />
     <span className="btn-loader">
       <svg width="30" height="30" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15.6668 6.18913C15.6668 5.82046 15.3682 5.52246 15.0002 5.52246C14.6322 5.52246 14.3335 5.82046 14.3335 6.18913V10.4998C14.3335 10.8685 14.6322 11.1665 15.0002 11.1665C15.3682 11.1665 15.6668 10.8685 15.6668 10.4998V6.18913Z" fill="currentColor" />

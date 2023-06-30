@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TaskCard } from "../components/TaskCard";
-import { getById } from "../redux/features/task/thunks/taskThunks";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { Loader } from "../components/Loader";
+import { TaskCard } from "../../components/TaskCard";
+import { getById } from "../../redux/features/task/thunks/taskThunks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { Loader } from "../../components/Loader";
 
 export const TaskPage = () => {
   const dispatch = useAppDispatch();
