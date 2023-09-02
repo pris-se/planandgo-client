@@ -12,7 +12,7 @@ export const Button = ({ onClick, children, classes, type, ...rest  }: Props) =>
   }
 
   return (
-    <button className={classes ? "btn btn--primary radius w-full " + classes : "btn btn--primary radius w-full"}
+    <button className={classes ? "btn radius " + classes : "btn btn--primary radius w-full btn--md"}
       onClick={(e)=> {handlerOnClick(e)}}
       {...rest}
       type={type ? type : "button"}

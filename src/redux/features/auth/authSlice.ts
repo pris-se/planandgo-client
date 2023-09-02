@@ -41,6 +41,7 @@ export const registration = createAsyncThunk(
     }
   }
 );
+
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: User) => {
@@ -58,7 +59,6 @@ export const login = createAsyncThunk(
     }
   }
 );
-
 export const getMe = createAsyncThunk("auth/me", async () => {
   try {
     const { data } = await axios.get("/api/auth/me");
@@ -84,6 +84,28 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
+
+export const assignTask = createAsyncThunk(
+  "auth/assignTask",
+  async (params: FormData) => {
+    try {
+      console.log(params);
+
+      const { data } = await axios.post("/api/auth/assignTask", params);
+      
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+
+
+
+
+
 
 export const authSlice = createSlice({
   name: "auth",
@@ -182,6 +204,7 @@ export const authSlice = createSlice({
     );
   },
 });
+
 
 export const checkIsAuth = (state: RootState) => Boolean(state.auth.token);
 

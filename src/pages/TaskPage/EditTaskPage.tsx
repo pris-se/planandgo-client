@@ -12,10 +12,10 @@ export const EditTaskPage = () => {
     const dispatch = useAppDispatch()
     const { id } = useParams()
     useEffect(() => {
-        if((task && id && task._id !== id) || !task && id) {
+        if((task && id && task._id !== id) || (!task && id)) {
             dispatch(getById(id))
         }
-    }, [])
+    }, [dispatch, task, id])
 
     if(isLoading) {
         return <Loader />

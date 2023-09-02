@@ -3,7 +3,6 @@
 .btn {
     position: relative;
     border: 1px solid transparent;
-    color: var(--defaultTextColor);
     font-size: var(--defaultFontSize);
     line-height: var(--defaultLineHeight);
     background-color: transparent;
@@ -11,10 +10,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    -webkit-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    transition: all .3s ease;
+    -webkit-transition: all .6s ease;
+    -o-transition: all .6s ease;
+    transition: all .6s ease;
     text-align: center;
+    gap: 8px;
 }
 .btn:hover {
     opacity: .8;
@@ -32,18 +32,80 @@
     background-color: var(--primary); 
     border-color: var(--primary);
     color: var(--white);  
-    padding: 13px 16px;  
 }
 .btn--primary:hover {
-    border: 1px solid var(--primary);
+    border-color: var(--primary);
     background-color: transparent;  
     color: var(--primary);  
 }
+.btn--outline-primary {
+    background-color: transparent; 
+    border-color: var(--primary);
+    color: var(--primary);  
+}
+.btn--outline-primary:hover {
+    border-color: var(--primary);
+    background-color: var(--primary);  
+    color: var(--white);  
+}
+.btn--outline-gray-30 {
+    background-color: transparent; 
+    border-color: var(--gray-30);
+    color: var(--gray-30);  
+}
+.btn--outline-gray-30:hover {
+    border-color: var(--gray-30);
+    background-color: var(--gray-30);  
+    color: var(--white);  
+}
+.btn--danger {
+    background-color: var(--danger); 
+    border-color: var(--danger);
+    color: var(--white);  
+}
+.btn--danger:hover {
+    border-color: var(--danger);
+    background-color: transparent;  
+    color: var(--danger);  
+}
+.btn--outline-danger {
+    background-color: transparent; 
+    border-color: var(--danger);
+    color: var(--danger);  
+}
+.btn--outline-danger:hover {
+    border-color: var(--danger);
+    background-color: var(--danger);  
+    color: var(--white);  
+}
 
+.btn--md {
+    padding: 14px 16px;
+}
+.btn-icon--sm {
+    width: 36px;
+    height: 36px;;
+}
+.btn-icon--md {
+    width: 44px;
+    height: 44px;;
+}
+
+.border--md {
+    border-width: 2px;
+}
+
+.disabled {
+    pointer-events: none;
+}
 
 @layer components {
     .btn-loader {
         margin: -8px;
+        @apply animate-spin;
+    }
+    .btn-hover--spin:hover > * {
+        /* margin: -8px; */
         @apply animate-spin;
     }
   }

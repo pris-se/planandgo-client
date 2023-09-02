@@ -48,9 +48,9 @@ export const SignUp = () => {
   return (
     <form className="mt-8" action="#" method="POST" onSubmit={(e) => e.preventDefault()}>
       <div className="rounded-md shadow-sm mb-5">
-        <Input handler={e => setUsername(e.currentTarget.value)} title="User Name" />
-        <Input handler={e => setEmail(e.currentTarget.value)} title="Email" />
-        <Input handler={e => setPassword(e.currentTarget.value)} title="Password" type='password' />
+        <Input handler={e => setUsername(e.currentTarget.value)} value={username} title="User Name" />
+        <Input handler={e => setEmail(e.currentTarget.value)} value={email} title="Email" />
+        <Input handler={e => setPassword(e.currentTarget.value)} value={password} title="Password" type='password' />
         <div>
           {
             image &&

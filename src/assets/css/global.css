@@ -4,6 +4,7 @@
 :root {
     --defaultTextColor: #0F0F0F;
     --bgColor: #F5F5F5;
+    --headerColor: #E5DEFF;
     --white: #F5F5F5;
     --primary: #4F26E9;
     --secondary: #c6c2fb;
@@ -99,7 +100,7 @@ h5 {
     flex: auto;
 }
 .container {
-    max-width: 1280px;
+    max-width: 1350px;
     margin: 0 auto;
     width: 100%;
     padding: 0 15px;
@@ -117,4 +118,15 @@ h5 {
 }
 *::-webkit-scrollbar-thumb:hover {
     background: var(--gray-20);
+}
+hr {
+    height: 1px;
+    background-color: var(--gray-30);
+}
+
+.color-primary {
+    color: var(--primary);
+}
+.color-gray-30 {
+    color: var(--gray-30);
 }

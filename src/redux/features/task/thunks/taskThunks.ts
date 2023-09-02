@@ -50,6 +50,17 @@ export const getById = createAsyncThunk(
         }
     }
 )
+export const getByIds = createAsyncThunk(
+    'task/getByIds',
+    async (ids: string[]|string|URLSearchParams) => {
+        try {
+            const { data } = await axios.get(`/api/tasks/ids/${ids}`)
+            return data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
 export const removeTask = createAsyncThunk(
     'task/removeTask',
     async (id:string) => {

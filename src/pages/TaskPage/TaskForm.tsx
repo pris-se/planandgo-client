@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { labels } from "../../data/data";
@@ -43,7 +43,8 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const submitTaskHandler = async () => {
+  const submitTaskHandler = async (e:FormEvent) => {
+    e.preventDefault()
     try {
       const filteredTags = tagsFilter(description);
 
@@ -82,7 +83,7 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
       dispatch(clearGanerated())
       
     }
-  }, [generated]);
+  }, [generated, dispatch]);
 
   if (isLoading) {
     return <Loader />;
@@ -92,7 +93,7 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
   }
 
   return (
-    <form className="form-group" onSubmit={(e) => e.preventDefault()}>
+    <form className="form-group" onSubmit={submitTaskHandler}>
       <div className="row">
         <div className="col-12">
           <label className="form-group w-full cursor-pointer text-center mb-4">
@@ -140,7 +141,7 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
             value={prompt}
             handler={(e) => setPrompt(e.target.value)}
           />
-          <Button classes="mb-3" onClick={generateHandler}>Generete</Button>
+          <Button classes="btn--primary btn--md radius mb-3" onClick={generateHandler}>Generete</Button>
         </div>
         {/* title */}
         <div className="col-12">
@@ -212,7 +213,7 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
         </div>
       </div>
       <div className="flex gap-2">
-        <Button onClick={submitTaskHandler}>Save</Button>
+        <Button type="submit">Save</Button>
       </div>
     </form>
   );

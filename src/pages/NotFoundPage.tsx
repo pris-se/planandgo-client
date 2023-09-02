@@ -7,7 +7,7 @@ export const NotFound = () => {
         <div className="container">
           <div className="h-screen flex flex-col items-center justify-center">
             <h1>Oops! You seem to be lost.</h1>
-            <Link className="btn btn--primary mt-10" to="/">
+            <Link className="btn btn--primary mt-10 btn--md radius w-60" to="/">
                 Home
             </Link>
           </div>

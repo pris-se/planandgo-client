@@ -21,6 +21,11 @@
     max-width: 500px;
     position: relative;
     transition: all 5s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 101;
   }
   
   .popup-header {

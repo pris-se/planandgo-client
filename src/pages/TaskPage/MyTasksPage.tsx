@@ -17,7 +17,7 @@ import { Button } from "../../components/ui/Button";
 import { ReactComponent as SearchIcon } from "../../assets/img/search.svg";
 import { CustomSelect } from "../../components/ui/CustomSelect";
 
-export const AllTasksPage = () => {
+export const MyTasksPage = () => {
   const dispatch = useAppDispatch();
   const { tasks, isLoading } = useAppSelector((state) => state.task);
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ export const AllTasksPage = () => {
   return (
     <div className="section">
       <div className="container">
-        <h2 className="page-heading">Community Tasks</h2>
+        <h2 className="page-heading">My tasks</h2>
         <div className="row gutters-cards">
           <div className="col-md-6">
             <div className="form-group">
@@ -80,20 +80,37 @@ export const AllTasksPage = () => {
                   handler={(e) => setTitle(e.target.value)}
                   title="Search..."
                   type="text"
-                  >
-                    <Button classes="color-primary" type="submit">
-                      <SearchIcon />
-                    </Button>
-                  </Input>
+                >
+                  <Button classes="color-primary" type="submit">
+                    <SearchIcon />
+                  </Button>
+                </Input>
               </form>
             </div>
           </div>
           <div className="col-md-6">
-            <div className="form-group">
-              <CustomSelect
-                options={labels.map((label) => ({ value: label, label }))}
-                onChange={(value) => setLabel(value.value)}
-              />
+            <div className="row gutters-cards">
+              <div className="col-sm-6">
+                <div className="form-group">
+                  <CustomSelect
+                    options={labels.map((label) => ({ value: label, label }))}
+                    onChange={(value) => setLabel(value.value)}
+                  />
+                </div>
+              </div>
+              <div className="col-sm-6">
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    checked={false}
+                    onChange={() => console.log("change")}
+                  />
+                  <div className="slider">
+                    <span className="switch-value">In progress</span>
+                    <span className="switch-value">Done</span>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -109,7 +126,7 @@ export const AllTasksPage = () => {
             <NavLink
               to="/tasks/create"
               className={({ isActive }) =>
-                isActive ? "hidden" : "create-task btn btn--primary rounded-full btn-icon--md"
+                isActive ? "hidden" : "create-task btn btn--primary radius"
               }
             >
               +

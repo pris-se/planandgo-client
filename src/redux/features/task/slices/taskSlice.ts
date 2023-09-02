@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ITask } from '../../../../models/Task.model';
-import { createTask, generateTaskImage, getAll, getById, removeTask, updateTask } from '../thunks/taskThunks';
+import { createTask, generateTaskImage, getAll, getById, getByIds, removeTask, updateTask } from '../thunks/taskThunks';
 
 
 interface PayloadType {
@@ -61,6 +61,19 @@ export const taskSlice = createSlice({
             state.tasks = payload?.tasks
         })
         builder.addCase(getAll.rejected, (state, { payload } : PayloadAction<any>) => {
+            state.isLoading = false
+            state.status = payload?.message
+            state.error = payload?.message
+
+        })
+        builder.addCase(getByIds.pending, (state) => {
+            state.isLoading = true
+        })
+        builder.addCase(getByIds.fulfilled, (state, { payload } : PayloadAction<PayloadType>) => {
+            state.isLoading = false
+            state.tasks = payload?.tasks
+        })
+        builder.addCase(getByIds.rejected, (state, { payload } : PayloadAction<any>) => {
             state.isLoading = false
             state.status = payload?.message
             state.error = payload?.message

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Spinner } from "../../components/ui/Spinner";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { login, resetPassword } from "../../redux/features/auth/authSlice";
+import { login } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 export const SignIn = () => {
@@ -44,11 +44,11 @@ export const SignIn = () => {
           {
             !isLoading
               ? <Button onClick={submitHandler}>Sign in</Button>
-              : <Button onClick={submitHandler} >
+              : <Button onClick={submitHandler} classes="btn--primary btn--md radius w-full disabled" >
                   <Spinner />
                 </Button>
           }
-          <button onClick={() => dispatch(resetPassword("admin@admin.com"))}>Forgot password?</button>
+          {/* <button onClick={() => dispatch(resetPassword("admin@admin.com"))}>Forgot password?</button> */}
         </form>
   );
 };

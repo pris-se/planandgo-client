@@ -4,9 +4,10 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement>{
   title: string,
   value?: string | number,
   handler: (e: React.ChangeEvent<HTMLInputElement>) => void
+  children?: React.ReactNode;
 }
 
-export const Input = ({ title, value, handler, ...rest }: IProps) => {
+export const Input = ({ title, value, handler, children, ...rest }: IProps) => {
 
   const [inputValue, setInputValue] = useState("")
 
@@ -16,14 +17,14 @@ export const Input = ({ title, value, handler, ...rest }: IProps) => {
   }
 
   return (
-    <label className='flex flex-col mb-3 w-full'>
+    <label className='input mb-3 w-full'>
       <input
-        className="input"
         placeholder={title}
         value={inputValue || value}
         onChange={e => handlerOnChange(e)}
         {...rest}
       />
+      {children}
     </label>
   )
 }

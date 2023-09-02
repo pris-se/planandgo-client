@@ -6,5 +6,6 @@ export interface ITask {
     img?: string
     views?: number,
     label?: string,
-    tags?: string[]
+    tags?: string[];
+    creator?: string;
 }

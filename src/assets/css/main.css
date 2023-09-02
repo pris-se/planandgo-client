@@ -1,6 +1,6 @@
 .loader {
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   align-items: center;
@@ -28,8 +28,8 @@
 }
 
 .section {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .text-info {
@@ -45,7 +45,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px 16px;
+  padding: 14px 16px;
   border-radius: var(--defaultRaduis);
   border: 1px solid var(--primary);
   font-size: 12px;
@@ -53,7 +53,9 @@
   background-color: var(--primary);
   color: var(--white);
 }
-
+.label.label--success {
+  background-color: var(--success);
+}
 input[type="radio"] ~ .label {
   background-color: var(--white);
   color: var(--primary);
@@ -67,25 +69,33 @@ input[type="radio"]:checked ~ .label {
 .card {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: var(--gray-10);
   border-radius: var(--defaultRaduis);
   height: 100%;
-  box-shadow: var(--shadows);
+  border: 1px solid var(--gray-30);
 }
 .card-top {
-  padding: 8px;
+  padding: 16px;
+  padding-bottom: 0;
 }
 .card-image {
   display: flex;
   position: relative;
   overflow: hidden;
   border-radius: var(--defaultRaduis);
-  height: 250px;
+  height: 186px;
+}
+.card-image img { 
+  transition: all 2s ease;
+  transform: scale(1);
+}
+.card-image:hover img {
+  transform: scale(1.2);
 }
 .card-image .label {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 7px;
+  top: 7px;
 }
 .card-image img {
   width: 100%;
@@ -97,12 +107,19 @@ input[type="radio"]:checked ~ .label {
   flex: auto;
   padding: 16px;
 }
+.card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-info {
+  color: var(--gray-30);
+}
 
 .card-title {
   margin-bottom: 8px;
 }
 .card-desc {
-  color: var(--gray-30);
   margin-bottom: 8px;
 }
 .card-footer {
@@ -144,6 +161,7 @@ input[type="radio"]:checked ~ .label {
   flex-direction: column;
   position: absolute;
   top: 0;
+  right: 0;
   background-color: #fff;
   padding: 16px;
   border-radius: var(--defaultRaduis);
@@ -179,4 +197,69 @@ input[type="radio"]:checked ~ .label {
 .breadcrumbs li a:hover {
   opacity: 0.7;
   text-decoration: underline;
+}
+
+.create-task {
+  position: fixed;
+  opacity: 0.3;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+}
+
+.page-heading {
+  color: var(--primary);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.078px;
+  margin-bottom: 32px;
+}
+
+.gutters-cards {
+  --bs-gutter-x: 24px;
+  --bs-gutter-y: 24px;
+}
+.gutters {
+  --bs-gutter-x: 20px;
+  --bs-gutter-y: 20px;
+}
+
+.image-big {
+  position: relative;
+  border-radius: var(--defaultRaduis);
+  border: 1px solid var(--gray-30);
+  overflow: hidden;
+  height: 430px;
+}
+.image-big .label {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.image-big .label.label--left {
+  right: auto;
+  left: 16px;
+}
+.image-big img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.image-big__bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--grey-30);
+}
+
+.swiper .swiper-slide {
+  height: auto;
 }

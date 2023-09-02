@@ -27,7 +27,7 @@ export const MainLayout = () => {
       <Header />
       <div className="wrapper header-fixed">
         <main className="content">
-          <BreadCrumbs />
+          {/* <BreadCrumbs /> */}
           <Outlet />
           <ToastContainer
             position="bottom-right"
@@ -36,7 +36,7 @@ export const MainLayout = () => {
           />
         </main>
       </div>
-      <ScrollTop />
+      {/* <ScrollTop /> */}
       {/* <Footer /> */}
     </>
   );

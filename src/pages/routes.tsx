@@ -9,7 +9,7 @@ import { AuthPage } from "./AuthPage/AuthPage";
 import { SignIn } from "./AuthPage/SignIn";
 import { SignUp } from "./AuthPage/SignUp";
 import { Loader } from "../components/Loader";
-import { MainLayout } from "../Layouts/MainLayout";
+import { MainLayout } from "../layout/MainLayout";
 import { AllTasksPage } from "./TaskPage/AllTasksPage";
 import { CreateTaskPage } from "./TaskPage/CreateTaskPage";
 import { EditTaskPage } from "./TaskPage/EditTaskPage";
@@ -17,6 +17,8 @@ import { HomePage } from "./HomePage";
 import { NotFound } from "./NotFoundPage";
 import { TaskPage } from "./TaskPage/TaskPage";
 import { SplashScreen } from "./SplashScreen";
+import { MyTasksPage } from "./TaskPage/MyTasksPage";
+import { Calendar } from "./Calendar";
 
 
 export const router = createBrowserRouter(
@@ -30,10 +32,12 @@ export const router = createBrowserRouter(
           <Route path="/" element={<HomePage />} />
           <Route path="/tasks">
             <Route index element={<AllTasksPage />} />
+            <Route path="my" element={<MyTasksPage />} />
             <Route path="create" element={<CreateTaskPage />} />
             <Route path=":id" element={<TaskPage />} />
             <Route path="edit/:id" element={<EditTaskPage />} />
           </Route>
+          <Route path="/calendar" element={<Calendar />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
         <Route path="/loader" element={<Loader />} />
