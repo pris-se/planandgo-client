@@ -96,6 +96,7 @@ input[type="radio"]:checked ~ .label {
   position: absolute;
   right: 7px;
   top: 7px;
+  padding: 8px 12px;
 }
 .card-image img {
   width: 100%;
@@ -162,7 +163,7 @@ input[type="radio"]:checked ~ .label {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #fff;
+  background-color: var(--bgColor);
   padding: 16px;
   border-radius: var(--defaultRaduis);
   box-shadow: var(--shadows);
@@ -241,6 +242,12 @@ input[type="radio"]:checked ~ .label {
 .image-big .label.label--left {
   right: auto;
   left: 16px;
+  z-index: 1;
+}
+.card-image .label.label--left {
+  right: auto;
+  left: 7px;
+  z-index: 1;
 }
 .image-big img {
   width: 100%;
@@ -259,7 +266,15 @@ input[type="radio"]:checked ~ .label {
   justify-content: space-between;
   border-top: 1px solid var(--grey-30);
 }
+.theme-dark .image-big__bottom {
+  background-color: rgba(15, 15, 15, 0.75);
+
+}
 
 .swiper .swiper-slide {
   height: auto;
+}
+
+.error {
+  color: var(--danger);
 }

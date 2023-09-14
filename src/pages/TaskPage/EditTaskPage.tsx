@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom"
 import { TaskForm } from "./TaskForm"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { updateTask } from "../../redux/features/task/taskSlice"
+import { updateTask } from "../../redux/thunks/taskThunks"
 import { useEffect } from "react"
-import { getById } from "../../redux/features/task/thunks/taskThunks"
+import { getById } from "../../redux/thunks/taskThunks"
 import { Loader } from "../../components/Loader"
 
 
@@ -28,7 +28,7 @@ export const EditTaskPage = () => {
                     <h2 className='text-primary mb-8'>Edit a Task</h2>
                 </div>
                 <div className='max-w-[360px] mx-auto'>
-                    <TaskForm submitHandler={updateTask} task={task} />
+                    <TaskForm submitHandlerProps={updateTask} task={task} />
                 </div>
             </div>
         </div>

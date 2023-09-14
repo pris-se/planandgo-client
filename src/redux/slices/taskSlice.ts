@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ITask } from '../../../../models/Task.model';
-import { createTask, generateTaskImage, getAll, getById, getByIds, removeTask, updateTask } from '../thunks/taskThunks';
+import { ITask } from '../../models/Task.model';
+import { createTask, getAll, getById, getByIds, getMy, removeTask, updateTask } from '../thunks/taskThunks';
 
 
 interface PayloadType {
@@ -13,7 +13,7 @@ interface TaskState {
     task: ITask|null;
     tasks: ITask[]|[];
     isLoading: boolean;
-    status?: null;
+    status?: string;
     error: "",
     generated? : string | null
 }
@@ -22,22 +22,15 @@ const initialState:TaskState = {
     task: null,
     tasks: [],
     isLoading: false,
-    status: null,
+    status: "",
     error: "",
     generated : ""
 }
 
-
-
-    
- 
 export const taskSlice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
-        clearGanerated(state) {
-            state.generated = ""
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(createTask.pending, (state) => {
@@ -64,7 +57,18 @@ export const taskSlice = createSlice({
             state.isLoading = false
             state.status = payload?.message
             state.error = payload?.message
-
+        })
+        builder.addCase(getMy.pending, (state) => {
+            state.isLoading = true
+        })
+        builder.addCase(getMy.fulfilled, (state, { payload } : PayloadAction<PayloadType>) => {
+            state.isLoading = false
+            state.tasks = payload?.tasks
+        })
+        builder.addCase(getMy.rejected, (state, { payload } : PayloadAction<any>) => {
+            state.isLoading = false
+            state.status = payload?.message
+            state.error = payload?.message
         })
         builder.addCase(getByIds.pending, (state) => {
             state.isLoading = true
@@ -97,7 +101,8 @@ export const taskSlice = createSlice({
         })
         builder.addCase(removeTask.fulfilled, (state, { payload } : PayloadAction<PayloadType>) => {
             state.isLoading = false
-            state.task = state.task
+            state.task = payload.task
+            state.status = payload?.message
         })
         builder.addCase(removeTask.rejected, (state, { payload } : PayloadAction<any>) => {
             state.isLoading = false
@@ -118,24 +123,10 @@ export const taskSlice = createSlice({
             state.error = payload?.message
 
         })
-        builder.addCase(generateTaskImage.pending, (state) => {
-            state.isLoading = true
-            state.error = ""
-        })
-        builder.addCase(generateTaskImage.fulfilled, (state, { payload } : PayloadAction<PayloadType>) => {
-            state.isLoading = false
-            state.generated = payload.task?.img
-            state.error = ""
-        })
-        builder.addCase(generateTaskImage.rejected, (state, { payload } : PayloadAction<any>) => {
-            state.isLoading = false
-            state.status = payload?.message
-            state.error = payload?.message
-        })
       },
     })
 
-    export const { clearGanerated } = taskSlice.actions
+    export const {  } = taskSlice.actions
 export default taskSlice.reducer
 
 

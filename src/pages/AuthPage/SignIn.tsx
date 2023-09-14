@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Spinner } from "../../components/ui/Spinner";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { login } from "../../redux/features/auth/authSlice";
+import { login } from "../../redux/thunks/authThunk";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 export const SignIn = () => {

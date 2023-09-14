@@ -3,63 +3,56 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { labels } from "../../data/data";
-import { formatTime, calcDuration } from "../../utils/time";
 import { ITask } from "../../models/Task.model";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { tagsFilter } from "../../utils/tagsFilter";
 import { Loader } from "../../components/Loader";
-import { generateTaskImage } from "../../redux/features/task/thunks/taskThunks";
-import { ErrorPage } from "../ErrorPage";
-import { clearGanerated } from "../../redux/features/task/slices/taskSlice";
+import { generateTaskImage } from "../../redux/thunks/aiThunk";
+import { useForm } from "react-hook-form";
+import { TaskSchema } from "../../schemas/taskSchemas";
+import { yupResolver } from '@hookform/resolvers/yup';
+
 
 interface TaskFormProps {
   task?: ITask | null;
-  submitHandler: (data: FormData) => any;
+  submitHandlerProps: (data: ITask) => any;
 }
 
-const getCurrentDate = (date: Date): string => {
-  date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-  date.setSeconds(0, 0);
-  const isoString = date.toISOString().slice(0, -1);
-  return isoString;
-};
+export const TaskForm = ({ task, submitHandlerProps }: TaskFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
 
-export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
-  const { isLoading, error, generated } = useAppSelector((state) => state.task);
+  } = useForm({
+    resolver: yupResolver(TaskSchema),
+  });
 
-  const [title, setTitle] = useState(task?.title || "");
-  const [description, setDescription] = useState(task?.description || "");
-  const [label, setLabel] = useState(task?.label || "Other");
+  useEffect(() => {
+    setValue("title", task?.title as never);
+    setValue("description", task?.description as never);
+    setValue("label", task?.label as never);
+    setValue("_id", task?._id as never);
+    setValue("image", task?.img as never);
+  },[])
+
+  const isLoading = useAppSelector((state) => state.task.isLoading);
+
   const [newImage, setNewImage] = useState<File | string>("");
-  const [startTime, setStartTime] = useState(getCurrentDate(new Date()));
-  const [endTime, setEndTime] = useState(
-    (task?.duration &&
-      getCurrentDate(new Date(Date.now() + task.duration * 60000))) ||
-      ""
-  );
-
-  const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useState(task?.description || "");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const submitTaskHandler = async (e:FormEvent) => {
-    e.preventDefault()
+  const submitHandler = async (data : ITask) => {
+    console.log("submit");
+    console.log(data);
+    const filteredTags = tagsFilter(data.description);
+    console.log(filteredTags);
+    
     try {
-      const filteredTags = tagsFilter(description);
-
-      const data = new FormData();
-      task?._id && data.append("id", task?._id);
-      data.append("title", title);
-      data.append("description", description);
-      data.append("duration", calcDuration(startTime, endTime).toString());
-      data.append("label", label);
-      generated && data.append("image", generated);
-      newImage && data.append("image", newImage);
-      data.append("tags", JSON.stringify(filteredTags));
-
-      const newtask = await dispatch(submitHandler(data));
-
+      const newtask = await dispatch(submitHandlerProps({...data, tags: filteredTags}));
       if (newtask && !isLoading) {
         navigate("/tasks/" + newtask?.payload.task._id ?? "error");
       }
@@ -68,37 +61,26 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
     }
   };
 
-  const generateHandler = () => {
-    if(prompt.length > 3) {
-      console.log(prompt);
-      const data = new FormData();
-      data.append("prompt", prompt);
-      dispatch(generateTaskImage(data))
+  const generateHandler = async () => {
+    if (prompt.length > 3) {
+      const generated = await dispatch(generateTaskImage(prompt)).unwrap();
+      const url = generated?.image
+      setNewImage(url);
+      setValue("image", url as never);
     }
-  }
-  useEffect(() => {
-    console.log(generated);
-    setNewImage("")
-    return () => {
-      dispatch(clearGanerated())
-      
-    }
-  }, [generated, dispatch]);
+  };
 
   if (isLoading) {
     return <Loader />;
   }
-  if (error) {
-    return <ErrorPage message={error}  />;
-  }
 
   return (
-    <form className="form-group" onSubmit={submitTaskHandler}>
+    <form className="form-group" onSubmit={handleSubmit(submitHandler)}>
       <div className="row">
         <div className="col-12">
           <label className="form-group w-full cursor-pointer text-center mb-4">
             <div className="upload-image mb-2">
-              {!generated && !newImage && task?.img && (
+              {!newImage && task?.img && (
                 <img
                   src={
                     task.img
@@ -108,20 +90,14 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
                   alt={task.img ? task.img.toString() : "placeholder"}
                 />
               )}
-              {generated && (
-                <img
-                  src={(generated && typeof generated == "string") ? generated : ""}
-                  alt={prompt}
-                />
-              )}
               {newImage && (
                 <img
                   src={
-                    newImage
-                      ? URL.createObjectURL(newImage as Blob)
-                      : "../../img/placeholder.png"
+                    newImage && typeof newImage === "string" 
+                    ? newImage 
+                    : URL.createObjectURL(newImage as Blob)
                   }
-                  alt={newImage ? newImage.toString() : "placeholder"}
+                  alt={newImage ? newImage.toString() : newImage.toString()}
                 />
               )}
             </div>
@@ -131,84 +107,59 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
             <input
               type="file"
               className="hidden"
+              {...register("image")}
               onChange={(e) => setNewImage(e.target?.files?.[0] || "")}
             />
           </label>
         </div>
-        <div className="flex gap-2">
-          <Input
-            title="Type something to generate"
-            value={prompt}
-            handler={(e) => setPrompt(e.target.value)}
-          />
-          <Button classes="btn--primary btn--md radius mb-3" onClick={generateHandler}>Generete</Button>
+        <div className="col-12 mb-3">
+          <Button
+            onClick={generateHandler}
+            disabled={(prompt.length < 3)}
+          >
+            Generete image from description
+          </Button>
         </div>
         {/* title */}
         <div className="col-12">
           <Input
-            handler={(e) => setTitle(e.target.value)}
             title="Task Name"
-            value={title}
+            error={errors?.title?.message}
+            {...register("title")}
           />
         </div>
         {/* description */}
         <div className="col-12">
           <div className="flex flex-col mb-3">
             <textarea
-              className="textarea"
+              className={errors?.description ? "textarea invalid" : "textarea"}
               placeholder="Task Description & Hashtags"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              {...register("description")}
+              onChange={(e) => setPrompt(e.target.value)}
             />
           </div>
-        </div>
-        {/* Start Time */}
-        <div className="col-6">
-          <Input
-            handler={(e) => setStartTime(e.target.value)}
-            value={startTime.toString()}
-            title="Start Time"
-            type="datetime-local"
-          />
-        </div>
-        {/* Ending time */}
-        <div className="col-6">
-          <Input
-            handler={(e) => setEndTime(e.target.value)}
-            value={endTime.toString()}
-            title="Ending time"
-            type="datetime-local"
-          />
-        </div>
-        <div className="col-12">
-          <p className="-mt-2 mb-3 text-info">
-            Estimated Time:{" "}
-            {(startTime &&
-              endTime &&
-              formatTime(calcDuration(startTime, endTime))) ||
-              (task?.duration && formatTime(task?.duration))}
-          </p>
+            {errors?.description && <p className="error mb-3 -mt-2">{errors?.description?.message}</p>}
         </div>
         <div className="col-12">
           <div className="mb-3">
             <h4 className="mb-2">Labels</h4>
-            <div className="row">
+            <div className="row mb-1">
               {labels &&
-                labels.map((lbl) => (
-                  <div className="col-4 mb-2" key={lbl}>
+                labels.map((value) => (
+                  <div className="col-4 mb-2" key={value}>
                     <label>
                       <input
                         type="radio"
-                        name="label"
                         className="hidden"
-                        onChange={() => setLabel(lbl)}
-                        checked={lbl === label}
+                        {...register("label")}
+                        value={value}
                       />
-                      <div className="label">{lbl}</div>
+                      <div className="label">{value}</div>
                     </label>
                   </div>
                 ))}
             </div>
+            {errors?.label && <p className="error mb-3 -mt-2">{errors?.label?.message}</p>}
           </div>
         </div>
       </div>
@@ -218,3 +169,4 @@ export const TaskForm = ({ task, submitHandler }: TaskFormProps) => {
     </form>
   );
 };
+

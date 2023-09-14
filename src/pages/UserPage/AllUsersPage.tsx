@@ -1,60 +1,58 @@
 import React, { useEffect, useState } from "react";
-import { Loader } from "../../components/Loader";
-import { TaskCard } from "../../components/TaskCard";
-import { getAll } from "../../redux/thunks/taskThunks";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { labels } from "../../data/data";
+import { UserCard } from "../../components/UserCard";
 import {
   NavLink,
   createSearchParams,
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { EmptyTaskPage } from "../EmptyTaskPage";
 import { Input } from "../../components/ui/Input";
-import { Button } from "../../components/ui/Button";
-
-import { ReactComponent as SearchIcon } from "../../assets/img/search.svg";
+import { Loader } from "../../components/Loader";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getAll } from "../../redux/thunks/authThunk";
 import { CustomSelect } from "../../components/ui/CustomSelect";
+import { roles } from "../../data/data";
+import { Button } from "../../components/ui/Button";
+import { ReactComponent as SearchIcon } from "../../assets/img/search.svg";
 
-export const AllTasksPage = () => {
+export const AllUsersPage = () => {
   const dispatch = useAppDispatch();
-  const { tasks, isLoading } = useAppSelector((state) => state.task);
+  const { users, isLoading } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
   const { search } = useLocation();
 
-  const [label, setLabel] = useState(
-    createSearchParams(search).get("label") || ""
+  const [role, setRole] = useState(
+    createSearchParams(search).get("role") || ""
   );
   const [title, setTitle] = useState(
     createSearchParams(search).get("title") || ""
   );
 
   useEffect(() => {
-    setLabel(createSearchParams(search).get("label") || "");
+    setRole(createSearchParams(search).get("role") || "");
     console.log(search);
 
     dispatch(getAll(search));
   }, [dispatch, search]);
 
   useEffect(() => {
-    if (label && label !== "all") {
+    if (role && role !== "all") {
       navigate({
-        pathname: "/tasks",
-        search: `?${label && createSearchParams({ label })}`,
+        pathname: "/users",
+        search: `?${role && createSearchParams({ role })}`,
       });
-    } else if (label === "all") {
+    } else if (role === "all") {
       navigate({
-        pathname: "/tasks",
+        pathname: "/users",
         search: ``,
       });
     }
-  }, [label, navigate]);
+  }, [role, navigate]);
 
   const searchHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate({
-      pathname: "/tasks",
+      pathname: "/users",
       search: `?${title && createSearchParams({ title })}`,
     });
   };
@@ -63,14 +61,14 @@ export const AllTasksPage = () => {
     return <Loader />;
   }
 
-  if (tasks && !tasks.length) {
-    return <EmptyTaskPage />;
+  if (users && !users.length) {
+    return <h1>There is no users yet</h1>;
   }
 
   return (
     <div className="section">
       <div className="container">
-        <h2 className="page-heading">Community Tasks</h2>
+        <h2 className="page-heading">Community users</h2>
         <div className="row gutters-cards">
           <div className="col-md-6">
             <div className="form-group">
@@ -80,41 +78,30 @@ export const AllTasksPage = () => {
                   handler={(e) => setTitle(e.target.value)}
                   title="Search..."
                   type="text"
-                  >
-                    <Button classes="color-primary" type="submit">
-                      <SearchIcon />
-                    </Button>
-                  </Input>
+                >
+                  <Button classes="color-primary" type="submit">
+                    <SearchIcon />
+                  </Button>
+                </Input>
               </form>
             </div>
           </div>
           <div className="col-md-6">
             <div className="form-group">
               <CustomSelect
-                options={labels.map((label) => ({ value: label, label }))}
-                onChange={(value) => setLabel(value.value)}
+                options={roles.map((role) => ({ value: role, label: role }))}
+                onChange={(value) => setRole(value.value)}
               />
             </div>
           </div>
         </div>
         <div className="row g-3">
-          {tasks &&
-            tasks.map((task) => (
-              <div className="col-lg-3 col-sm-6" key={task._id}>
-                <TaskCard task={task} />
+          {users &&
+            users.map((user) => (
+              <div className="col-lg-3 col-sm-6" key={user._id}>
+                <UserCard user={user} />
               </div>
             ))}
-
-          {
-            <NavLink
-              to="/tasks/create"
-              className={({ isActive }) =>
-                isActive ? "hidden" : "create-task btn btn--primary radius"
-              }
-            >
-              +
-            </NavLink>
-          }
         </div>
       </div>
     </div>

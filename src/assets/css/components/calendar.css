@@ -33,3 +33,6 @@
 a.fc-event {
   cursor: pointer;
 }
+.fc-day-today {
+  color: #1a252f!important;
+}

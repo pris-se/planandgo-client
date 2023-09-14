@@ -5,11 +5,14 @@ export interface User {
     password: string;
     img?: string
     role?: 'admin'| 'client' | '';
-    tasks?: ITask[] | []
+    tasks?: IEvent[] | []
 }
-interface ITask {
+
+export interface IEvent {
+    _id?: string;
     id: string;
     title: string;
     start: Date;
     end: Date;
-} 
+    url?: string
+  }

@@ -15,7 +15,7 @@
   }
   .popup {
     margin: 70px auto;
-    background: #fff;
+    background: var(--bgColor);
     border-radius: 5px;
     width: 100%;
     max-width: 500px;

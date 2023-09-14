@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Loader } from "../../components/Loader";
 import { TaskCard } from "../../components/TaskCard";
-import { getAll } from "../../redux/features/task/thunks/taskThunks";
+import { getMy } from "../../redux/thunks/taskThunks";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { labels } from "../../data/data";
 import {
@@ -34,7 +34,7 @@ export const MyTasksPage = () => {
     setLabel(createSearchParams(search).get("label") || "");
     console.log(search);
 
-    dispatch(getAll(search));
+    dispatch(getMy(search));
   }, [dispatch, search]);
 
   useEffect(() => {
@@ -99,15 +99,15 @@ export const MyTasksPage = () => {
                 </div>
               </div>
               <div className="col-sm-6">
-                <label className="switch">
+                <label className="switch mb-3">
                   <input
                     type="checkbox"
-                    checked={false}
+                    checked={true}
                     onChange={() => console.log("change")}
                   />
                   <div className="slider">
-                    <span className="switch-value">In progress</span>
-                    <span className="switch-value">Done</span>
+                    <span className="switch-value">Active</span>
+                    <span className="switch-value">All</span>
                   </div>
                 </label>
               </div>

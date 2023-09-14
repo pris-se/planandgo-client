@@ -54,7 +54,7 @@
         color: var(--white);
    }
    .switch input[type="checkbox"]:checked + .slider .switch-value:first-child {
-        color: var(--defaultTextColor);
+        color: #0F0F0F;
    }
 
    .switch-value {

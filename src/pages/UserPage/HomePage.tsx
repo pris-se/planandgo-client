@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Navigate } from "react-router-dom";
-import { Loader } from "../components/Loader";
-import { CardsSwiper } from "../components/CardsSwiper";
-import { Button } from "../components/ui/Button";
-import placeholderImage from "../assets/img/placeholder.png";
-import { getAll, getByIds } from "../redux/features/task/thunks/taskThunks";
+import { Loader } from "../../components/Loader";
+import { CardsSwiper } from "../../components/CardsSwiper";
+import { Button } from "../../components/ui/Button";
+import placeholderImage from "../../assets/img/placeholder.png";
+import { getByIds } from "../../redux/thunks/taskThunks";
 
 export const HomePage = () => {
   const { user, isLoading } = useAppSelector((state) => state.auth);
@@ -15,12 +15,8 @@ export const HomePage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(user?.tasks);
-    
     if(user?.tasks) {
         const ids = user?.tasks?.map(tasks => tasks?.id).join("+") || []
-        const params = new URLSearchParams(ids)
-          console.log(ids);
           dispatch(getByIds(ids));
       }
   },[]);
@@ -41,7 +37,7 @@ export const HomePage = () => {
     <>
       <section className="section">
         <div className="container">
-          <h2 className="page-heading">Task Page</h2>
+          <h2 className="page-heading">User Page</h2>
           <div className="row gutters">
             <div className="col-lg-6">
               <div className="image-big">

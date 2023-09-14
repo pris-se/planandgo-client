@@ -1,33 +1,27 @@
 import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { getMe } from "../redux/features/auth/authSlice";
+import { getMe } from "../redux/thunks/authThunk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ToastContainer } from "react-toastify";
-import { ScrollTop } from "../components/ScrollTop"
-import { BreadCrumbs } from "../components/Breadcrumbs";
-import { ErrorPage } from "../pages/ErrorPage";
+import { isDarkMode, setDarkMode } from "../redux/slices/mainSlice";
 
 export const MainLayout = () => {
   const dispatch = useAppDispatch();
-  // const {isLoading} = useAppSelector(state => state.auth)
-  const { error } = useAppSelector(state => state.task)
-
+  const isDark = useAppSelector(isDarkMode);
   useEffect(() => {
     dispatch(getMe());
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(setDarkMode(isDark));
+    console.log(isDark);
+  }, [isDark]);
 
-
-  if(error) {
-    return <ErrorPage message={error}  />
-  }
   return (
     <>
       <Header />
       <div className="wrapper header-fixed">
         <main className="content">
-          {/* <BreadCrumbs /> */}
           <Outlet />
           <ToastContainer
             position="bottom-right"
@@ -36,8 +30,6 @@ export const MainLayout = () => {
           />
         </main>
       </div>
-      {/* <ScrollTop /> */}
-      {/* <Footer /> */}
     </>
   );
 };

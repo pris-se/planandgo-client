@@ -1,30 +1,41 @@
-import React, { InputHTMLAttributes, ReactEventHandler, useState } from 'react'
+import React, { InputHTMLAttributes, useState } from "react";
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement>{
-  title: string,
-  value?: string | number,
-  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
+  title: string;
+  value?: string | number;
+  handler?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   children?: React.ReactNode;
+  error?: string;
 }
 
-export const Input = ({ title, value, handler, children, ...rest }: IProps) => {
+export const Input = React.forwardRef(
+  (
+    { title, value, handler, children, error, ...rest }: IProps,
+    ref: React.Ref<HTMLInputElement>
+  ) => {
+    const [inputValue, setInputValue] = useState("");
 
-  const [inputValue, setInputValue] = useState("")
+    const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value);
+      handler && handler(e);
+    };
 
-  const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    handler(e)
+    return (
+      <>
+        <label
+          className={!error ? "input mb-3 w-full" : "input mb-3 w-full invalid"}
+        >
+          <input
+            placeholder={title}
+            value={inputValue || value}
+            onChange={(e) => handlerOnChange(e)}
+            {...rest}
+            ref={ref}
+          />
+          {children}
+        </label>
+        {error && <p className="error mb-3 -mt-2">{error}</p>}
+      </>
+    );
   }
-
-  return (
-    <label className='input mb-3 w-full'>
-      <input
-        placeholder={title}
-        value={inputValue || value}
-        onChange={e => handlerOnChange(e)}
-        {...rest}
-      />
-      {children}
-    </label>
-  )
-}
+);

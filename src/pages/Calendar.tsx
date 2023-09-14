@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import "../assets/css/components/calendar.css";
 import { useAppSelector } from "../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import { IEvent } from "../models/User.model";
 
 // const events = [
 //   {
@@ -16,12 +17,7 @@ import { useNavigate } from "react-router-dom";
 //   },
 // ];
 
-interface IEvent {
-  title: string;
-  start: Date;
-  end: Date;
-  url?: string
-}
+
 
 
 export const Calendar = () => {

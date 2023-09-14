@@ -32,6 +32,10 @@
 }
 body.theme-dark {
     --bgColor: #0F0F0F;
+    --headerColor: #0F0F0F;
+    --defaultTextColor: #F5F5F5;
+    --gray-10: #0F0F0F;
+
 }
 
 body {

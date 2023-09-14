@@ -1,16 +1,18 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../../models/User.model";
-import axios from "../../../utils/axios";
-import { RootState } from "../../store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "../../models/User.model";
+import { RootState } from "../store";
+import { registration, login, getMe, resetPassword, getAll } from "../thunks/authThunk";
 
 interface PayloadType {
   user: User;
+  users: User[];
   token: string;
   message: string;
 }
 
 interface AuthState {
   user: User | null;
+  users: User[] | [];
   token: string | null;
   isLoading: boolean;
   status: string | null;
@@ -19,91 +21,12 @@ interface AuthState {
 
 const initialState = {
   user: null,
+  users: [],
   token: null,
   isLoading: false,
   status: null,
   password: null,
 } as AuthState;
-
-export const registration = createAsyncThunk(
-  "auth/registration",
-  async (params: FormData) => {
-    try {
-      console.log(params);
-
-      const { data } = await axios.post("/api/auth/registration", params);
-      if (data.token) {
-        window.localStorage.setItem("token", data.token);
-      }
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const login = createAsyncThunk(
-  "auth/login",
-  async ({ email, password }: User) => {
-    try {
-      const { data } = await axios.post("/api/auth/login", {
-        email,
-        password,
-      });
-      if (data.token) {
-        window.localStorage.setItem("token", data.token);
-      }
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-export const getMe = createAsyncThunk("auth/me", async () => {
-  try {
-    const { data } = await axios.get("/api/auth/me");
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const resetPassword = createAsyncThunk(
-  "auth/reset",
-  async (email: string) => {
-    try {
-      const { data } = await axios.post("/api/auth/reset", {
-        email,
-      });
-      // if(data.token) {
-      //     window.localStorage.setItem('token', data.token)
-      // }
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-
-export const assignTask = createAsyncThunk(
-  "auth/assignTask",
-  async (params: FormData) => {
-    try {
-      console.log(params);
-
-      const { data } = await axios.post("/api/auth/assignTask", params);
-      
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-
-
-
 
 
 
@@ -177,6 +100,26 @@ export const authSlice = createSlice({
     );
     builder.addCase(
       getMe.rejected,
+      (state, { payload }: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.status = payload?.message;
+      }
+    );
+    //Get all
+    builder.addCase(getAll.pending, (state) => {
+      state.isLoading = true;
+      state.status = null;
+    });
+    builder.addCase(
+      getAll.fulfilled,
+      (state, { payload }: PayloadAction<PayloadType>) => {
+        state.isLoading = false;
+        state.users = payload?.users;
+        state.status = payload?.message;
+      }
+    );
+    builder.addCase(
+      getAll.rejected,
       (state, { payload }: PayloadAction<any>) => {
         state.isLoading = false;
         state.status = payload?.message;

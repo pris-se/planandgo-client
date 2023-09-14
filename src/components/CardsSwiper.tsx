@@ -35,8 +35,6 @@ export const CardsSwiper = ({ tasks }: CardsSwiperProps) => {
 
         slidesPerView={1}
         spaceBetween={20}
-        onSlideChange={(swiper) => console.log("slide change")}
-        onSwiper={(swiper) => console.log("swiper init")}
         autoplay={true}
       >
         {tasks.map((task) => (
