@@ -16,7 +16,6 @@ import { EditTaskPage } from "./TaskPage/EditTaskPage";
 import { HomePage } from "./UserPage/HomePage";
 import { NotFound } from "./NotFoundPage";
 import { TaskPage } from "./TaskPage/TaskPage";
-import { SplashScreen } from "./SplashScreen";
 import { MyTasksPage } from "./TaskPage/MyTasksPage";
 import { Calendar } from "./Calendar";
 import { AllUsersPage } from "./UserPage/AllUsersPage";
@@ -43,7 +42,6 @@ export const router = createBrowserRouter(
         </Route>
         <Route path="/*" element={<NotFound />} />
         <Route path="/loader" element={<Loader />} />
-        <Route path="/splash" element={<SplashScreen />} />
     </>
   )
 );

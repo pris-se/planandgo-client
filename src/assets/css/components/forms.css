@@ -11,7 +11,7 @@
   background-color: var(--gray-10);
   border-radius: var(--defaultRaduis);
   border: 1px solid var(--gray-30);
-  color: var(--gray-20);
+  color: var(--defaultTextColor);
 }
 textarea {
   padding: 14px 16px;
@@ -25,7 +25,7 @@ textarea {
   width: 100%;
   background-color: transparent;
   padding: 14px 16px;
-  color: var(--gray-20);
+  color: var(--defaultTextColor);
 }
 .input button {
   padding: 14px 16px;
@@ -35,12 +35,10 @@ textarea {
 }
 .react-select-container .react-select__control {
     font-family: var(--fontFamily);
-    /* padding: 14px 16px; */
     font-size: 12px;
     line-height: 16px;
     width: 100%;
     background-color: var(--bgColor)!important;
-    /* background-color: var(--gray-10)!important; */
     border-radius: var(--defaultRaduis)!important;
     border: 1px solid var(--gray-30)!important;
     width: 100%;
@@ -52,7 +50,7 @@ textarea {
 .react-select-container .react-select__placeholder {
     font-size: 12px;
     line-height: 16px;
-    color: var(--gray-20);
+    color: var(--gray-30);
     margin: 0;
 }
 .react-select-container .react-select__control.react-select__control--menu-is-open .react-select__indicators {
@@ -80,7 +78,7 @@ textarea {
 }
 .input::placeholder,
 .textarea::placeholder {
-  color: var(--gray-20);
+  color: var(--gray-30);
 }
 .textarea {
   resize: none;

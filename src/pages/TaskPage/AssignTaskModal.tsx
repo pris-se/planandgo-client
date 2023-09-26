@@ -6,7 +6,6 @@ import { ITask } from "../../models/Task.model";
 import { calcDuration, formatTime } from "../../utils/time";
 import { assignTask, getMe } from "../../redux/thunks/authThunk";
 import { toast } from "react-toastify";
-import { IEvent } from "../../models/User.model";
 import { useAppDispatch } from "../../redux/hooks";
 import { Duration } from "../../components/Duration";
 import { useNavigate } from "react-router-dom";
@@ -20,16 +19,13 @@ export const AssignTaskModal = ({ task, modalShow }: IProps) => {
   const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState(modalShow);
   const [duration, setDuration] = useState<number>(task.duration);
-  const [date, setDate] = useState({ start: new Date(), end: new Date(new Date().getTime() + task.duration / task.usage) });
+  const [date, setDate] = useState({ start: new Date(), end: new Date(new Date().getTime() + (task.usage ? (task.duration / task.usage) : 0) ) });
 
   const navigate = useNavigate()
   useEffect(() => {
     const duration = calcDuration(date.start, date.end);
-    console.log(date);
     if (duration) {
       setDuration(duration);
-      console.log("duration", duration);
-      
     }
   }, [date]);
 

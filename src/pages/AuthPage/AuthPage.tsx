@@ -17,7 +17,7 @@ export const AuthPage = () => {
   return (
     <section className="section">
       <div className="container">
-        <div className="flex justify-center mb-14">
+        <div className="flex justify-center color-primary mb-14">
           <Logo/>
         </div>
         <div className="max-w-[360px] mx-auto">
