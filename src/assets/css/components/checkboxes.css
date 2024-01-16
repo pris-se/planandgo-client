@@ -1,6 +1,6 @@
 .switch {
   --button-width: 100%;
-  --button-height: 44px;
+  --button-height: var(--input-height);
   --bg-default: var(--white);
   --bg-active: var(--primary);
   --color-default: var(--defaultTextColor);
@@ -8,6 +8,7 @@
   --offset: 0px;
   --main-radius: var(--defaultRaduis);
   --inner-radius: var(--defaultRaduis);
+  --transition: 0.2s all linear;
   display: flex;
   cursor: pointer;
 }
@@ -18,13 +19,14 @@
 
 .slider {
   display: flex;
+  align-items: center;
   width: var(--button-width);
   height: var(--button-height);
   background-color: var(--bg-default);
   border-radius: var(--main-radius);
   border: 1px solid var(--bg-active);
   position: relative;
-  transition: 0.2s all linear;
+  transition: var(--transition);
   box-sizing: content-box;
   color: var(--color-default);
 }
@@ -40,7 +42,7 @@
   border-radius: var(--inner-radius);
   border: 1px solid var(--bg-active);
   position: absolute;
-  transition: 0.4s all linear;
+  transition: var(--transition);
   margin: var(--offset);
 }
 
@@ -77,12 +79,17 @@
   height: calc(100% - var(--offset));
   font-weight: 600;
   z-index: 1;
-  transition: all 0.5s ease-in-out;
+  transition: var(--transition);
+}
+
+.switch-value .ico {
+  --size: var(--icon--size);
 }
 
 .switch.switch--theme {
-  --button-width: 64px;
-  --button-height: 34px;
+  --button-width: 46px;
+  --button-height: 24px;
+  --icon--size: calc(var(--button-height) / 2);
   --bg-default: var(--defaultTextColor);
   --bg-active: var(--primary);
   --color-default: var(--gray-30);

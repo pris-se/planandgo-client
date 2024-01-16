@@ -22,7 +22,7 @@ import { IEvent } from "../models/User.model";
 
 export const Calendar = () => {
 
-  const tasks = useAppSelector(state => state.auth.user?.tasks) || []
+  const tasks = useAppSelector(state => state.auth.me?.tasks) || []
   const events:IEvent[] = tasks
   
   const navigate = useNavigate()
@@ -48,9 +48,9 @@ export const Calendar = () => {
 
 function renderEventContent(eventInfo: any) {
   return (
-    <div className="flex gap-1 px-1 py-1">
+    <div className="flex gap-1 px-1 py-1 truncate">
       <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
+      <i className="flex-auto truncate">{eventInfo.event.title}</i>
     </div>
   );
 }

@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const TaskCard = ({ task }: Props) => {
-  const userId = useAppSelector((state) => state.auth.user?._id);
+  const userId = useAppSelector((state) => state.auth.me?._id);
 
   const formatedDesc = addTagLink(task.description).map(
     (str, idx) => {

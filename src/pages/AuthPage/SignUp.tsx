@@ -14,7 +14,7 @@ export const SignUp = () => {
   const [image, setImage] = useState<File | string>("");
   const dispatch = useAppDispatch();
 
-  const { isLoading, user } = useAppSelector((state) => state.auth);
+  const { isLoading, me } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const submitHandler = () => {
@@ -35,11 +35,11 @@ export const SignUp = () => {
   };
 
   useEffect(() => {
-    console.log(user);
-    if (user && !isLoading) {
+    console.log(me);
+    if (me && !isLoading) {
       navigate("/");
     }
-  }, [user, navigate, isLoading]);
+  }, [me, navigate, isLoading]);
 
   return (
     <form

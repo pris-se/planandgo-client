@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../models/User.model";
 import { RootState } from "../store";
-import { registration, login, getMe, resetPassword, getAll } from "../thunks/authThunk";
+import { registration, login, getMe, resetPassword, getAll, getUser } from "../thunks/authThunk";
 
 interface PayloadType {
+  me: User;
   user: User;
   users: User[];
   token: string;
   message: string;
 }
 
-interface AuthState {
+interface AuthState { 
+  me: User | null;
   user: User | null;
   users: User[] | [];
   token: string | null;
@@ -20,6 +22,7 @@ interface AuthState {
 }
 
 const initialState = {
+  me: null,
   user: null,
   users: [],
   token: null,
@@ -36,9 +39,11 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state: AuthState) => {
       state.user = null;
+      state.me = null;
       state.token = null;
       state.isLoading = false;
       state.status = null;
+      window.localStorage.removeItem("token");
     },
   },
   extraReducers: (builder) => {
@@ -51,7 +56,7 @@ export const authSlice = createSlice({
       registration.fulfilled,
       (state, { payload }: PayloadAction<PayloadType>) => {
         state.isLoading = false;
-        state.user = payload?.user;
+        state.me = payload?.user;
         state.status = payload?.message;
         state.token = payload?.token;
       }
@@ -72,7 +77,7 @@ export const authSlice = createSlice({
       login.fulfilled,
       (state, { payload }: PayloadAction<PayloadType>) => {
         state.isLoading = false;
-        state.user = payload?.user;
+        state.me = payload?.user;
         state.status = payload?.message;
         state.token = payload?.token;
       }
@@ -93,13 +98,33 @@ export const authSlice = createSlice({
       getMe.fulfilled,
       (state, { payload }: PayloadAction<PayloadType>) => {
         state.isLoading = false;
-        state.user = payload?.user;
+        state.me = payload?.user;
         state.status = payload?.message;
         state.token = payload?.token;
       }
     );
     builder.addCase(
       getMe.rejected,
+      (state, { payload }: PayloadAction<any>) => {
+        state.isLoading = false;
+        state.status = payload?.message;
+      }
+    );
+    //Get User
+    builder.addCase(getUser.pending, (state) => {
+      state.isLoading = true;
+      state.status = null;
+    });
+    builder.addCase(
+      getUser.fulfilled,
+      (state, { payload }: PayloadAction<PayloadType>) => {
+        state.isLoading = false;
+        state.user = payload?.user;
+        state.status = payload?.message;
+      }
+    );
+    builder.addCase(
+      getUser.rejected,
       (state, { payload }: PayloadAction<any>) => {
         state.isLoading = false;
         state.status = payload?.message;

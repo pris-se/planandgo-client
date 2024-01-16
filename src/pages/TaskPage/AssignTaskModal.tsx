@@ -12,12 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 interface IProps {
   task: ITask;
-  modalShow: string;
+  show: boolean;
+  onClose: () => void
 }
 
-export const AssignTaskModal = ({ task, modalShow }: IProps) => {
+export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
   const dispatch = useAppDispatch();
-  const [isVisible, setIsVisible] = useState(modalShow);
   const [duration, setDuration] = useState<number>(task.duration);
   const [date, setDate] = useState({ start: new Date(), end: new Date(new Date().getTime() + (task.usage ? (task.duration / task.usage) : 0) ) });
 
@@ -49,10 +49,9 @@ export const AssignTaskModal = ({ task, modalShow }: IProps) => {
 
   return (
     <Modal
-      id="assign-to-me"
-      show={isVisible === "assign-to-me"}
+      show={show}
       title={task.title}
-      onClose={() => setIsVisible("")}
+      onClose={onClose}
     >
       <form onSubmit={assignTaskHandler}>
         <div className="popup-body">
@@ -93,7 +92,7 @@ export const AssignTaskModal = ({ task, modalShow }: IProps) => {
         </div>
         <div className="popup-footer">
           <Button type="submit">Confirm</Button>
-          <Button onClick={() => setIsVisible("")}>Cancel</Button>
+          <Button onClick={onClose}>Cancel</Button>
         </div>
       </form>
     </Modal>

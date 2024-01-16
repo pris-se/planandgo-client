@@ -8,6 +8,7 @@ export const UserSchema: ObjectSchema<User> = object({
     password: string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     img: string().optional(),
     role: string().oneOf(['admin', 'client', ''], 'Invalid role').optional(),
+    createdAt: string().optional(),
     tasks: array().of(
         object().shape({
             _id: string().optional(),

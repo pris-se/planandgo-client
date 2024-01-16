@@ -5,16 +5,18 @@ import { getMe } from "../redux/thunks/authThunk";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { ToastContainer } from "react-toastify";
 import { isDarkMode, setDarkMode } from "../redux/slices/mainSlice";
+import { ScrollTop } from "../components/ScrollTop";
 
 export const MainLayout = () => {
   const dispatch = useAppDispatch();
   const isDark = useAppSelector(isDarkMode);
+  
   useEffect(() => {
     dispatch(getMe());
   }, [dispatch]);
+
   useEffect(() => {
     dispatch(setDarkMode(isDark));
-    console.log(isDark);
   }, [isDark]);
 
   return (
@@ -30,6 +32,7 @@ export const MainLayout = () => {
           />
         </main>
       </div>
+      <ScrollTop />
     </>
   );
 };

@@ -7,7 +7,7 @@ interface MainState {
 }
 
 const initialState = {
-    isDarkMode: window.localStorage.getItem("isDarkMode") == "true"
+    isDarkMode: window.localStorage.getItem("isDarkMode") == "true" || window.matchMedia('(prefers-color-scheme: dark)').matches
 } as MainState;
 
 

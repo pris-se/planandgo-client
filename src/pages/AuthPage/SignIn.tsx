@@ -5,50 +5,50 @@ import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
 import { login } from "../../redux/thunks/authThunk";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { toast } from "react-toastify";
 
 export const SignIn = () => {
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useAppDispatch()
-  const { user, isLoading } = useAppSelector(state => state.auth)
-  const navigate = useNavigate()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const dispatch = useAppDispatch()
+    const { me, status, isLoading } = useAppSelector(state => state.auth)
+    const navigate = useNavigate()
 
 
-  const submitHandler = () => {
-    if (email && password) {
-      try {
-        dispatch(login({ email, password }))
-        setEmail('')
-        setPassword('')
-      } catch (error) {
-        console.log(error);
-      }
+    const submitHandler = (e:React.FormEvent<HTMLFormElement>) => {
+        console.log(email, password);
+        e.preventDefault()
+        if (email && password) {
+            try {
+                dispatch(login({ email, password }))
+             
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
-  }
 
-  useEffect(() => {
-    console.log(user);
-    if (user && !isLoading) {
-      navigate('/')
-    }
-  }, [user, navigate, isLoading])
+    useEffect(() => {
+        if (me && !isLoading) {
+            navigate('/')
+            setEmail('')
+            setPassword('')
+        }
+        toast(status);
+    }, [me, navigate, isLoading])
 
 
-  return (
-        <form className="mt-8" action="#" method="POST" onSubmit={(e) => e.preventDefault()}>
-          <div className="rounded-md shadow-sm mb-5">
-            <Input handler={e => setEmail(e.currentTarget.value)} value={email} title="Email" name="email" type="email"/>
-            <Input handler={e => setPassword(e.currentTarget.value)} value={password} title="Password" type="password" />
-          </div>
-          {
-            !isLoading
-              ? <Button onClick={submitHandler}>Sign in</Button>
-              : <Button onClick={submitHandler} classes="btn--primary btn--md radius w-full disabled" >
-                  <Spinner />
-                </Button>
-          }
-          {/* <button onClick={() => dispatch(resetPassword("admin@admin.com"))}>Forgot password?</button> */}
+    return (
+        <form className="mt-8" action="#" method="POST" onSubmit={submitHandler}>
+            <div className="rounded-md shadow-sm mb-5">
+                <Input handler={e => setEmail(e.currentTarget.value)} value={email} title="Email" name="email" type="email" />
+                <Input handler={e => setPassword(e.currentTarget.value)} value={password} title="Password" type="password" />
+            </div>
+            <Button type="submit" classes={`btn--primary btn--md radius w-full ${isLoading ? "disabled" : ""}`} >
+                {isLoading ? <Spinner /> : "Sign in"}
+            </Button>
+            {/* <button onClick={() => dispatch(resetPassword("admin@admin.com"))}>Forgot password?</button> */}
         </form>
-  );
+    );
 };

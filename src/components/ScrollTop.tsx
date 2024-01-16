@@ -31,9 +31,5 @@ export const ScrollTop = () => {
     if(!show) {
         return null
     }
-    return (
-        <Button classes="scroll-top" onClick={scrollTopHandler}>
-            &#8593;
-        </Button>
-  )
+    return null;
 }

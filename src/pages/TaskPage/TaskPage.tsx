@@ -17,10 +17,11 @@ import { Duration } from "../../components/Duration";
 export const TaskPage = () => {
   const dispatch = useAppDispatch();
   const { task, isLoading, tasks } = useAppSelector((state) => state.task);
-  const userId = useAppSelector((state) => state.auth.user?._id);
-  const role = useAppSelector((state) => state.auth.user?.role);
-  const events = useAppSelector((state) => state.auth.user?.tasks);
-  const [modalShow, setModalShow] = useState("");
+  const userId = useAppSelector((state) => state.auth.me?._id);
+  const role = useAppSelector((state) => state.auth.me?.role);
+  const events = useAppSelector((state) => state.auth.me?.tasks);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [assignTaskModalShow, setAssignTaskModalShow] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -31,7 +32,7 @@ export const TaskPage = () => {
       if (id) {
         const task = await dispatch(removeTask(id));
         if (task) {
-          toast(task.payload.message);
+          toast(task?.payload.message);
           navigate(-1);
         }
       }
@@ -44,7 +45,7 @@ export const TaskPage = () => {
     if (id) {
       dispatch(getById(id))
         .unwrap()
-        .then((res) => dispatch(getAll(`?label=${res.task.label}`)));
+        .then((res) => dispatch(getAll(`?label=${res.task?.label}`)));
     }
   }, [dispatch, id]);
 
@@ -67,13 +68,13 @@ export const TaskPage = () => {
                   className="w-full h-full"
                   src={
                     task?.img
-                      ? process.env.REACT_APP_BASE_IMAGE_URL + task.img
+                      ? process.env.REACT_APP_BASE_IMAGE_URL + task?.img
                       : placeholderImage
                   }
                   alt={task?.title}
                 />
-                <span className="label">{task.label}</span>
-                {userId === task.creator && (
+                <span className="label">{task?.label}</span>
+                {userId === task?.creator && (
                   <span className="label label--left label--success">
                     Creator
                   </span>
@@ -81,14 +82,14 @@ export const TaskPage = () => {
                 <div className="image-big__bottom">
                   <span>
                     <span className="font-semibold">Average Duration: </span>
-                    {task.usage && (
-                      <Duration time={formatTime(task.duration / task.usage)} />
+                    {task?.usage && (
+                      <Duration time={formatTime(task?.duration / task?.usage)} />
                     )}
                   </span>
 
                   <span>
                     <span className="font-semibold">Usage: </span>
-                    {task.usage} times
+                    {task?.usage} times
                   </span>
                 </div>
               </div>
@@ -96,18 +97,18 @@ export const TaskPage = () => {
             <div className="col-lg-6">
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between mb-8">
-                  <h2>{task.title}</h2>
-                  {(role === "admin" || userId === task.creator) && (
+                  <h2>{task?.title}</h2>
+                  {(role === "admin" || userId === task?.creator) && (
                     <Button
-                      onClick={() => setModalShow("delete")}
+                      onClick={() => setDeleteModalShow(true)}
                       classes="btn--outline-danger btn-icon--sm "
                     >
                       <BinIcon />
                     </Button>
                   )}
                 </div>
-                <p>
-                  {addTagLink(task.description).map((str, idx) => {
+                <p className="text-pretty">
+                  {addTagLink(task?.description).map((str, idx) => {
                     if (str?.link) {
                       return (
                         <Link
@@ -145,22 +146,18 @@ export const TaskPage = () => {
                   })}
                 </ul>
                 <div className="flex items-center justify-between mt-auto pt-5">
-                  <div className="row gutters w-full">
-                    <div className="col-6">
-                      <Button onClick={() => setModalShow("assign-to-me")}>
-                        Assign to me
-                      </Button>
-                    </div>
-                    <div className="col-6">
-                      {(role === "admin" || userId === task.creator) && (
-                        <Link
-                          to={"/tasks/edit/" + task?._id ?? "error"}
-                          className="btn btn--outline-primary radius w-full btn--md"
-                        >
-                          Edit
-                        </Link>
-                      )}
-                    </div>
+                  <div className="group gap-5 w-full">
+                    <Button onClick={() => setAssignTaskModalShow(true)}>
+                      Assign to me
+                    </Button>
+                    {(role === "admin" || userId === task?.creator) && (
+                      <Link
+                        to={"/tasks/edit/" + task?._id ?? "error"}
+                        className="btn btn--outline-primary radius w-full btn--md"
+                      >
+                        Edit
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -176,26 +173,27 @@ export const TaskPage = () => {
         </div>
       </div>
 
-      {modalShow && (
+      {deleteModalShow && (
         <>
           <Modal
-            id="delete"
-            show={modalShow === "delete"}
+            show={deleteModalShow}
             title="Delete Task"
-            // show={modalShow}
-            onClose={() => setModalShow("")}
+            onClose={() => setDeleteModalShow(false)}
           >
             <div>
-              <p>Are you sure you want to delete {task.title} task</p>
+              <p>Are you sure you want to delete {task?.title} task</p>
               <div className="popup-footer">
                 <Button onClick={removeHandler}>Delete</Button>
-                <Button onClick={() => setModalShow("")}>Cancel</Button>
+                <Button onClick={() => setDeleteModalShow(false)}>Cancel</Button>
               </div>
             </div>
           </Modal>
-          <AssignTaskModal modalShow="assign-to-me" task={task} />
         </>
       )}
+      {
+        assignTaskModalShow &&
+        <AssignTaskModal show={assignTaskModalShow} onClose={() => setAssignTaskModalShow(false)} task={task} />
+      }
     </>
   );
 };

@@ -51,6 +51,18 @@ export const getMe = createAsyncThunk(
     }
   }
 );
+export const getUser = createAsyncThunk(
+  "auth/user",
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/auth/id/${id}`);
+      return data;
+    } catch (error) {
+      const err = error as AxiosError<KnownError>;
+      return rejectWithValue(err?.response?.data);
+    }
+  }
+);
 export const getAll = createAsyncThunk(
   "auth/all",
   async (query:string = "", { rejectWithValue }) => {

@@ -1,8 +1,12 @@
+:root {
+  --input-height: 40px;
+}
+
 .form-group {
   display: block;
 }
-
-.input,
+.input input,
+input.input,
 .textarea {
   font-family: var(--fontFamily);
   font-size: 12px;
@@ -15,20 +19,35 @@
 }
 textarea {
   padding: 14px 16px;
+  min-height: 64px;
+}
+.input,
+.textarea {
+  overflow: hidden;
 }
 .input {
   display: flex;
   align-items: center;
 }
-.input input {
+.input input,
+input.input {
   flex: auto;
   width: 100%;
   background-color: transparent;
-  padding: 14px 16px;
+  padding: 4px 16px;
+  height: var(--input-height);
   color: var(--defaultTextColor);
 }
 .input button {
-  padding: 14px 16px;
+  padding: 4px 16px;
+  min-height: 40px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.input:has(button) input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
 }
 
 .react-select-container {
@@ -43,15 +62,19 @@ textarea {
     border: 1px solid var(--gray-30)!important;
     width: 100%;
     box-shadow: none;
+    min-height: var(--input-height);
 }
 .react-select-container .react-select__value-container {
-  padding: 10px 16px;
+  padding: 4px 16px;
 }
 .react-select-container .react-select__placeholder {
     font-size: 12px;
     line-height: 16px;
     color: var(--gray-30);
     margin: 0;
+}
+.react-select-container .react-select__single-value {
+  color: var(--defaultTextColor);
 }
 .react-select-container .react-select__control.react-select__control--menu-is-open .react-select__indicators {
   transform: rotate(180deg);
@@ -68,7 +91,7 @@ textarea {
 .react-select-container .react-select__option:hover
  {
   background-color: var(--primary);
-
+  color: var(--white);
 }
 
 input,
@@ -99,5 +122,4 @@ textarea {
 }
 .react-datepicker__input-container {
   display: flex;
-  
 }

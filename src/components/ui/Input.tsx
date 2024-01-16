@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, useState } from "react";
+import React, { InputHTMLAttributes, useEffect, useState } from "react";
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   title: string;
@@ -13,12 +13,16 @@ export const Input = React.forwardRef(
     { title, value, handler, children, error, ...rest }: IProps,
     ref: React.Ref<HTMLInputElement>
   ) => {
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState(value);
 
     const handlerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
       handler && handler(e);
     };
+
+    useEffect(() => {
+      setInputValue(value || "")
+    }, [value])
 
     return (
       <>

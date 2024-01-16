@@ -79,7 +79,7 @@ export const AllUsersPage = () => {
                   title="Search..."
                   type="text"
                 >
-                  <Button classes="color-primary" type="submit">
+                  <Button classes="btn btn--outline-gray-30 btn--square radius" type="submit">
                     <SearchIcon />
                   </Button>
                 </Input>
@@ -91,6 +91,7 @@ export const AllUsersPage = () => {
               <CustomSelect
                 options={roles.map((role) => ({ value: role, label: role }))}
                 onChange={(value) => setRole(value.value)}
+                value={role}
               />
             </div>
           </div>

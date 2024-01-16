@@ -5,7 +5,8 @@ export interface User {
     password: string;
     img?: string
     role?: 'admin'| 'client' | '';
-    tasks?: IEvent[] | []
+    tasks?: IEvent[] | [];
+    createdAt?: string;
 }
 
 export interface IEvent {
