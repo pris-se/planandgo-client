@@ -25,7 +25,7 @@ export const CardsSwiper = ({ tasks }: CardsSwiperProps) => {
                 spaceBetween={20}
                 freeMode={true}
                 autoplay={true}
-                onInit={(swiper) => {
+                onInit={(swiper: any) => {
                     const wrapper = swiper.wrapperEl.scrollWidth
                     const swiperEl = swiper.el.clientWidth
                     setIsNavigationShown(Boolean(wrapper - swiperEl))
