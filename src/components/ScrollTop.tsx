@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button } from './ui/Button';
 import { useAppSelector } from '../redux/hooks';
 
 export const ScrollTop = () => {
 
     const { pathname } = useLocation();
     const [show, setShow] = useState(false)
-    const { isLoading } = useAppSelector(state => state.task)
-    
+    const isTasksLoading = useAppSelector(state => state.tasks.isLoading)
+    const isUsersLoading = useAppSelector(state => state.users.isLoading)
+
     const scrollTopHandler = () => {
         document.documentElement.scrollTo({
             top: 0,
@@ -19,16 +19,16 @@ export const ScrollTop = () => {
 
     useEffect(() => {
         scrollTopHandler()
-        
+
     }, [pathname]);
 
     useEffect(() => {
-        if(!isLoading) {
+        if (!isTasksLoading && !isUsersLoading) {
             setShow(document.documentElement.clientHeight < document.documentElement.scrollHeight)
         }
-    }, [isLoading, pathname]);
+    }, [isUsersLoading, isTasksLoading, pathname]);
 
-    if(!show) {
+    if (!show) {
         return null
     }
     return null;

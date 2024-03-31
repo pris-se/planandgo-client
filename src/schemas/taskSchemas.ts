@@ -1,16 +1,19 @@
-import { ITask } from '../models/Task.model';
-import { object, number, string, ObjectSchema, array, ISchema, AnyObject } from 'yup';
+import { AnyObject, ISchema, ObjectSchema, array, number, object, string } from 'yup';
+import { TaskResolver } from '../interfaces';
 
 
-export const TaskSchema: ObjectSchema<ITask> = object({
+
+// export type TaskResolver = Pick<Task, Exclude<keyof Task, 'img'>> & { img?: File | string | FileList  };
+
+export const TaskSchema: ObjectSchema<TaskResolver> = object({
   _id: string().optional(),
   title: string().required('Title is required'),
   description: string().required('Description is required'),
-  duration: number().optional().default(0),
+  duration: number().default(0),
   img: string().optional(),
-  views: number().optional(),
-  label: string().default("other"),
-  tags: array().of(string()).optional() as unknown as ISchema<string[], AnyObject>,
-  creator: string().optional(),
-  usage: number().default(0),
+  views: number().default(0),
+  category: string().default("other"),
+  tags: array().of(string()) as unknown as ISchema<string[], AnyObject>,
+  createdBy: string(),
+  assignCount: number().default(0),
 });

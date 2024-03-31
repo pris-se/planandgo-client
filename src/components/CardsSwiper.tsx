@@ -3,11 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import { TaskCard } from "../components/TaskCard";
-import { ITask } from "../models/Task.model";
+import { Task } from "../interfaces";
 import { SwiperNavigation } from "./SwiperNavigation";
 
 interface CardsSwiperProps {
-    tasks: ITask[];
+    tasks: Task[];
 }
 
 export const CardsSwiper = ({ tasks }: CardsSwiperProps) => {
@@ -36,11 +36,12 @@ export const CardsSwiper = ({ tasks }: CardsSwiperProps) => {
                         slidesPerView: 2,
                         spaceBetween: 20,
                     },
-                    768: {
+                    
+                    992: {
                         slidesPerView: 3,
                         spaceBetween: 20,
                     },
-                    1024: {
+                    1200: {
                         slidesPerView: 4,
                         spaceBetween: 20,
                     },

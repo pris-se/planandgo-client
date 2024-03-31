@@ -1,38 +1,29 @@
-@tailwind components;
-
 .btn {
     position: relative;
     border: 1px solid transparent;
-    font-size: var(--defaultFontSize);
-    line-height: var(--defaultLineHeight);
+    font-size: var(--def-button-fs);
+    line-height: var(--def-lh);
     background-color: transparent;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    -webkit-transition: all .6s ease;
-    -o-transition: all .6s ease;
-    transition: all .6s ease;
+    transition: all 0.6s ease;
     text-align: center;
-    gap: 8px;
-    --min-height: unset;
-    min-height: var(--min-height);
+    gap: var(--gap-xs);
+    --btn-height: unset;
+    min-height: var(--btn-height);
 }
 
 .btn:hover {
-    opacity: .8;
+    opacity: 0.8;
 }
 
 .btn--default {
-    background-color: var(--defaultTextColor);
-    border-color: var(--defaultTextColor);
+    background-color: var(--def-text-color);
+    border-color: var(--def-text-color);
     color: var(--white);
 }
-
-/* .btn--default:hover {
-    background-color: transparent;
-    color: var(--defaultTextColor);
-} */
 
 .btn--primary {
     background-color: var(--primary);
@@ -40,25 +31,11 @@
     color: var(--white);
 }
 
-/* .btn--primary:hover {
-    border-color: var(--primary);
-    background-color: transparent;
-    color: var(--primary);
-} */
-
 .btn--danger {
     background-color: var(--danger);
     border-color: var(--danger);
     color: var(--white);
 }
-
-/* .btn--danger:hover {
-    border-color: var(--danger);
-    background-color: transparent;
-    color: var(--danger);
-} */
-
-/* outline */
 
 .btn--outline-primary {
     background-color: transparent;
@@ -66,22 +43,10 @@
     color: var(--primary);
 }
 
-.btn--outline-primary:hover {
-    border-color: var(--primary);
-    background-color: var(--primary);
-    color: var(--white);
-}
-
-.btn--outline-gray-30 {
+.btn--outline-grey-30 {
     background-color: transparent;
-    border-color: var(--gray-30);
-    color: var(--gray-30);
-}
-
-.btn--outline-gray-30:hover {
-    border-color: var(--gray-30);
-    background-color: var(--gray-30);
-    color: var(--white);
+    border-color: var(--grey-30);
+    color: var(--grey-30);
 }
 
 .btn--outline-danger {
@@ -90,43 +55,37 @@
     color: var(--danger);
 }
 
-.btn--outline-danger:hover {
-    border-color: var(--danger);
-    background-color: var(--danger);
-    color: var(--white);
+.btn--xs {
+    padding: 4px 10px;
+    --btn-height: var(--btn-xs);
 }
 
 .btn--sm {
-    padding: 4px 8px;
-    --min-height: 32px;
+    padding: 4px 11px;
+    --btn-height: var(--btn-sm);
 }
 
 .btn--md {
+    padding: 4px 12px;
+    --btn-height: var(--btn-md);
+}
+
+.btn--lg {
+    padding: 4px 14px;
+    --btn-height: var(--btn-lg);
+}
+
+.btn--xl {
     padding: 4px 16px;
-    --min-height: 40px;
+    --btn-height: var(--btn-xl);
 }
 
 .btn--square {
-    width: var(--min-height);
-    min-width: var(--min-height);
-    height: var(--min-height);
+    width: var(--btn-height);
+    min-width: var(--btn-height);
+    height: var(--btn-height);
     padding: 0;
-}
-
-.btn-icon--sm {
-    width: 32px;
-    height: 32px;
-    ;
-}
-
-.btn-icon--md {
-    width: 40px;
-    height: 40px;
-    ;
-}
-
-.border--md {
-    border-width: 2px;
+    flex: 0 0 var(--btn-height);
 }
 
 .disabled,
@@ -135,30 +94,26 @@
     opacity: 0.7;
 }
 
-@layer components {
-    .btn-loader {
-        margin: -8px;
-        @apply animate-spin;
-    }
-
-    .btn-hover--spin:hover>* {
-        /* margin: -8px; */
-        @apply animate-spin;
-    }
-}
-
 .btn--create {
     position: fixed;
     bottom: 10px;
     right: 10px;
-    color: var(--primary);
-    border-radius: 360px;
+    color: var(--white);
+    background-color: var(--primary);
     font-size: 22px;
-    @apply btn--md;
-    @apply btn--square;
-    @apply btn--primary;
+    --btn-height: var(--btn-xl);
+    border-radius: var(--def-radius);
 }
 
-.btn--create:hover {
-    @apply btn--outline-primary;
+.link {
+    font-size: var(--def-button-fs);
+    line-height: var(--def-lh);
+    background-color: transparent;
+    font-weight: 600;
+    display: inline-flex;
+    transition: all 0.6s ease;
+    gap: var(--gap-xs);
+} 
+.link.link--primary {
+    color: var(--primary);
 }

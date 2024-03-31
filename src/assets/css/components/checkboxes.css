@@ -1,98 +1,116 @@
 .switch {
-  --button-width: 100%;
-  --button-height: var(--input-height);
-  --bg-default: var(--white);
-  --bg-active: var(--primary);
-  --color-default: var(--defaultTextColor);
-  --color-active: var(--white);
-  --offset: 0px;
-  --main-radius: var(--defaultRaduis);
-  --inner-radius: var(--defaultRaduis);
-  --transition: 0.2s all linear;
-  display: flex;
-  cursor: pointer;
+	--button-width: 100%;
+	--button-height: var(--input-md);
+	--bg-default: var(--white);
+	--bg-active: var(--primary);
+	--color-default: var(--def-fs);
+	--color-active: var(--white);
+	--offset: 0px;
+	--main-radius: var(--def-radius);
+	--inner-radius: calc(var(--def-radius) - 2px);
+	--transition: 0.2s all linear;
+	display: flex;
+	cursor: pointer;
+	user-select: none;
 }
 
 .theme-dark .switch {
-     --color-default: #0F0F0F;
+	--color-default: #0F0F0F;
 }
 
 .slider {
-  display: flex;
-  align-items: center;
-  width: var(--button-width);
-  height: var(--button-height);
-  background-color: var(--bg-default);
-  border-radius: var(--main-radius);
-  border: 1px solid var(--bg-active);
-  position: relative;
-  transition: var(--transition);
-  box-sizing: content-box;
-  color: var(--color-default);
+	display: flex;
+	align-items: center;
+	width: var(--button-width);
+	height: var(--button-height);
+	background-color: var(--bg-default);
+	border-radius: var(--main-radius);
+	border: 1px solid var(--bg-active);
+	position: relative;
+	transition: var(--transition);
+	box-sizing: content-box;
+	color: var(--color-default);
+	overflow: hidden;
 }
 
 .slider::after {
-  content: "";
-  display: inline-flex;
-  width: calc(50% - var(--offset));
-  top: 0;
-  left: 0;
-  height: calc(var(--button-height) - var(--offset) * 2);
-  background-color: var(--bg-active);
-  border-radius: var(--inner-radius);
-  border: 1px solid var(--bg-active);
-  position: absolute;
-  transition: var(--transition);
-  margin: var(--offset);
+	content: "";
+	display: inline-flex;
+	width: calc(50% - var(--offset));
+	top: 0;
+	left: 0;
+	height: calc(var(--button-height) - var(--offset) * 2);
+	background-color: var(--bg-active);
+	border-radius: var(--inner-radius);
+	border: 1px solid var(--bg-active);
+	position: absolute;
+	transition: var(--transition);
+	margin: var(--offset);
 }
 
-.switch input[type="checkbox"]:checked + .slider::after {
-  transform: translateX(100%);
+
+.switch input[type="checkbox"]:checked+.slider::after {
+	transform: translateX(100%);
 }
+/* 
+.switch:hover input[type="checkbox"]:checked+.slider::after {
+}
+
+.switch:hover .slider::after {
+} */
 
 .switch input[type="checkbox"] {
-  display: none;
+	display: none;
 }
 
-.switch input[type="checkbox"]:active + .slider::after {
-  background-color: var(--bg-active);
+.switch input[type="checkbox"]:active+.slider::after {
+	background-color: var(--bg-active);
 }
 
-.switch input[type="checkbox"]:checked:active + .slider .slider::after {
+.switch input[type="checkbox"]:checked+.slider .switch-value:last-child {
+	color: var(--color-active);
 }
-.switch input[type="checkbox"]:checked + .slider .switch-value:last-child {
-  color: var(--color-active);
+
+.switch input[type="checkbox"]+.slider .switch-value:first-child {
+	color: var(--color-active);
 }
-.switch input[type="checkbox"] + .slider .switch-value:first-child {
-  color: var(--color-active);
-}
-.switch input[type="checkbox"]:checked + .slider .switch-value:first-child {
-  color: var(--color-default);
+
+.switch input[type="checkbox"]:checked+.slider .switch-value:first-child {
+	color: var(--color-default);
 }
 
 .switch-value {
-  position: relative;
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  height: calc(100% - var(--offset));
-  font-weight: 600;
-  z-index: 1;
-  transition: var(--transition);
+	position: relative;
+	display: flex;
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	height: calc(100% - var(--offset));
+	font-weight: 600;
+	z-index: 1;
+	transition: var(--transition);
 }
 
 .switch-value .ico {
-  --size: var(--icon--size);
+	--ico-size: var(--switch-ico-size);
 }
 
 .switch.switch--theme {
-  --button-width: 46px;
-  --button-height: 24px;
-  --icon--size: calc(var(--button-height) / 2);
-  --bg-default: var(--defaultTextColor);
-  --bg-active: var(--primary);
-  --color-default: var(--gray-30);
-  --offset: 1px;
-  --inner-radius: 4px;
+	--button-width: 46px;
+	--button-height: 24px;
+	--switch-ico-size: calc(var(--button-height) / 2);
+	--bg-default: var(--def-text-color);
+	--bg-active: var(--primary);
+	--color-default: var(--grey-30);
+	--offset: 1px;
+}
+
+.switch.switch--view {
+	--button-width: 64px;
+	--button-height: 32px;
+	--switch-ico-size: calc(var(--button-height) / 2);
+	--bg-default: var(--def-text-color);
+	--bg-active: var(--primary);
+	--color-default: var(--grey-30);
+	--offset: 1px;
 }

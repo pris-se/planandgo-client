@@ -6,23 +6,27 @@ import { ReactComponent as PrevIcon } from "../assets/img/chevron-right.svg";
 
 
 export const SwiperNavigation = () => {
-  const swiper = useSwiper();
-  return (
-    <div className="flex items-center justify-center gap-[64px] mt-8">
-      <Button
-        classes="btn--outline-primary btn-icon--md border--md"
-        onClick={() => {
-          swiper.slidePrev();
-        }}
-      >
-        <PrevIcon />
-      </Button>
-      <Button
-        classes="btn--outline-primary btn-icon--md border--md"
-        onClick={() => swiper.slideNext()}
-      >
-        <NextIcon />
-      </Button>
-    </div>
-  );
+	const swiper = useSwiper();
+	return (
+		<div className="row-group gap--sm w-fit mt-8 mx-auto">
+			<Button
+				classes="btn--outline-primary btn--square btn--md"
+				onClick={() => {
+					swiper.slidePrev();
+				}}
+			>
+				<span className="ico">
+					<PrevIcon />
+				</span>
+			</Button>
+			<Button
+				classes="btn--outline-primary btn--square btn--md"
+				onClick={() => swiper.slideNext()}
+			>
+				<span className="ico">
+					<NextIcon />
+				</span>
+			</Button>
+		</div>
+	);
 };

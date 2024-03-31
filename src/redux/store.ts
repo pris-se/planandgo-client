@@ -1,15 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authSlice from './slices/authSlice'
-import taskSlice from './slices/taskSlice'
-import aiSlice from './slices/aiSlice'
-import mainSlice from './slices/mainSlice'
+import { profileSlice } from './features/profile';
+import { userSlice } from './features/users';
+import { tasksSlice, taskSlice } from './features/tasks';
+import { eventSlice } from './features/events';
+import { settingsSlice } from './features/settings';
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice,
-    task: taskSlice,
-    ai: aiSlice,
-    main: mainSlice,
+    users: userSlice.reducer,
+    tasks: tasksSlice.reducer,
+    task: taskSlice.reducer,
+    profile: profileSlice.reducer,
+    settings: settingsSlice.reducer,
+    events: eventSlice.reducer,
   },
 })
 

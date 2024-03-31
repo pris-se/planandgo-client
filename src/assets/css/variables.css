@@ -1,0 +1,92 @@
+:root {
+    /* Default Definitions */
+    --def-radius: 6px;
+    --def-fs: var(--fs-md);
+    --def-button-fs: var(--fs-sm);
+    --def-input-fs: var(--fs-sm);
+    --def-lh: 140%;
+    --def-text-color: #0F0F0F;
+    --def-ff: 'Open Sans', sans-serif;
+    --def-container: 1320px;
+    --def-container-padding-x: 16px;
+    --header-height: 60px;
+    /* Background Colors */
+    --bg-color: var(--white);
+    --header-bg-color: var(--primary-light);
+    --scrollbar-width: 10px;
+    
+    /* Colors */
+    --white: #F5F5F5;
+    --primary: #4F26E9;
+    --primary-light: #E5DEFF;
+    --secondary: #c6c2fb;
+    --success: #019c23;
+    --warning: #E9E526;
+    --danger: #FC0000;
+    --danger-light: #F7E8E8;
+    --grey-30: #8D8D8D;
+    --grey-20: #E1E1E1;
+    --grey-10: #F2F2F2;
+    --placeholder-color: #8D99AE;
+    --border-color: #8D8D8D;
+    
+    /* Shadows */
+    --shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    
+    /* Heading Sizes */
+    --h1-size: 32px;
+    --h2-size: 28px;
+    --h3-size: 22px;
+    --h4-size: 20px;
+    --h5-size: 18px;
+    
+    /* Font Sizes */
+    --fs-xs: 12px;
+    --fs-sm: 13px;
+    --fs-md: 15px;
+    --fs-lg: 16px;
+    --fs-xl: 18px;
+    
+    /* Gaps */
+    --gap-xs: 8px;
+    --gap-sm: 16px;
+    --gap-md: 20px;
+    --gap-lg: 24px;
+    --gap-xl: 32px;
+    
+    /* Sizes */
+    --size-xs: 32px;
+    --size-sm: 36px;
+    --size-md: 40px;
+    --size-lg: 44px;
+    --size-xl: 48px;
+    
+    /* Icon Sizes */
+    --ico-xs: var(--size-xs);
+    --ico-sm: var(--size-sm);
+    --ico-md: var(--size-md);
+    --ico-lg: var(--size-lg);
+    --ico-xl: var(--size-xl);
+    
+    /* Button Sizes */
+    --btn-xs: var(--size-xs);
+    --btn-sm: var(--size-sm);
+    --btn-md: var(--size-md);
+    --btn-lg: var(--size-lg);
+    --btn-xl: var(--size-xl);
+    
+    /* Input Sizes */
+    --input-xs: var(--size-xs);
+    --input-sm: var(--size-sm);
+    --input-md: var(--size-md);
+    --input-lg: var(--size-lg);
+    --input-xl: var(--size-xl);
+}
+
+body.theme-dark {
+    /* Dark Theme Overrides */
+    --bg-color: #0F0F0F;
+    --header-bg-color: #0F0F0F;
+    --def-text-color: #F5F5F5;
+    --grey-10: #0D0D0D;
+}

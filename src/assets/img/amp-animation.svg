@@ -8,7 +8,7 @@
                     <animate
                     attributeName="stroke-dashoffset"
                     values="0;323;646;"
-                    dur="1s"
+                    dur="1.5s"
                     repeatCount="indefinite" 
                     />
                 </path>

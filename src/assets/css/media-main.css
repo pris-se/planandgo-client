@@ -1,16 +1,28 @@
 @media (max-width: 1199.98px) {}
 
-@media (max-width: 991.98px) {
-    .image-big {
-        aspect-ratio: 4/3;
-        max-height: 260px;
-        max-width: 100%;
-    }
-}
+@media (max-width: 991.98px) {}
 
 @media (max-width: 767.98px) {}
 
-@media (max-width: 575.98px) {}
+@media (max-width: 575.98px) {
+    .row.list-view .card .card-image {
+        height: 160px;
+        width: 130px;
+    }
+
+    .row.list-view .card .card-footer {
+        flex-direction: column;
+    }
+
+    .row.list-view .card .card-actions {
+        margin-left: 0;
+        width: auto;
+    }
+
+    .row.list-view .card .card-description {
+        -webkit-line-clamp: 1;
+    }
+}
 
 @media (min-width: 576px) {}
 

@@ -1,38 +1,57 @@
-import Select, { GroupBase } from "react-select"
+import { useEffect, useState } from "react";
+import Select, { GroupProps, PlaceholderProps, Props, PropsValue, SingleValue, components } from "react-select"
 
-// interface Option {
-// 	[key: string] : string 
-// }
-interface SelectProps<
-	Option = unknown,
-	IsMulti extends boolean = false,
-	Group extends GroupBase<Option> = GroupBase<Option>
-> {
-	value?: string,
-	options: {
-		[key: string]: string,
-	}[],
-	// readonly options: readonly Option[];
-	onChange: (any: any) => void
+interface Option {
+	label: string;
+	value: string;
 }
 
+interface SelectProps extends Props<Option, false> {
+	selectValue?: string | null;
+	options: Option[];
+	// defaultValue?: PropsValue<Option>;
+	onSelect?: (option: Option | null) => void
+}
 
-export const CustomSelect = ({ options, value, ...rest }: SelectProps) => {
-	const currentOption = options.find(opt => opt.label === value) || options[0]
+const Placeholder = (props: PlaceholderProps<Option>) => {
+	return <components.Placeholder {...props} />;
+};
+
+export const CustomSelect = ({ options, selectValue, onSelect, isMulti = false, ...rest }: SelectProps) => {
+
+	const [value, setValue] = useState(findValue(selectValue));
+
+	function findValue(value: string | undefined | null) {
+		return options.find((option) => option.value === value) || null;
+	}
+	function handleOnChange(option: SingleValue<Option>) {
+		onSelect && onSelect(option)
+		setValue(option);
+	}
+
+	useEffect(() => {
+		setValue(findValue(selectValue))
+	}, [selectValue])
 
 	return (
-		<Select
-			options={options}
-			value={currentOption as any}
-			{...rest}
-			theme={(theme) => ({ ...theme, borderRadius: 0 })}
-			components={{
-				IndicatorSeparator: () => null
-			}}
-			className="react-select-container mb-3"
-			classNamePrefix="react-select"
-			isSearchable={false}
-		/>
+		<div className="form-group">
+			<Select
+				options={options}
+				value={value}
+				theme={(theme) => ({ ...theme, borderRadius: 0 })}
+				components={{
+					IndicatorSeparator: () => null,
+					Placeholder
+				}}
+				className="react-select-container"
+				classNamePrefix="react-select"
+				isSearchable={false}
+				menuPortalTarget={document.body}
+				menuPosition="absolute"
+				{...rest}
+				onChange={handleOnChange}
+			/>
+		</div>
 
 	)
 }

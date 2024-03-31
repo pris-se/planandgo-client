@@ -1,125 +1,267 @@
-:root {
-  --input-height: 40px;
+.form-group {
+  --padding-x: unset;
+  --input-height: unset;
+  --input-fs: var(--def-input-fs);
+  --input-radius: unset;
+  --ico-size: unset;
+  --gap: 10px;
 }
 
-.form-group {
-  display: block;
+.input-wrapper {
+  position: relative;
+  display: flex;
 }
-.input input,
-input.input,
-.textarea {
-  font-family: var(--fontFamily);
-  font-size: 12px;
-  line-height: 16px;
-  width: 100%;
-  background-color: var(--gray-10);
-  border-radius: var(--defaultRaduis);
-  border: 1px solid var(--gray-30);
-  color: var(--defaultTextColor);
-}
-textarea {
-  padding: 14px 16px;
-  min-height: 64px;
-}
+
 .input,
 .textarea {
-  overflow: hidden;
-}
-.input {
-  display: flex;
-  align-items: center;
-}
-.input input,
-input.input {
-  flex: auto;
   width: 100%;
   background-color: transparent;
-  padding: 4px 16px;
+  border: 1px solid transparent;
+  padding: 0 var(--padding-x);
+  border-radius: var(--input-radius);
+  color: var(--def-text-color);
+}
+.input {
   height: var(--input-height);
-  color: var(--defaultTextColor);
 }
-.input button {
-  padding: 4px 16px;
-  min-height: 40px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.input:has(button) input {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: 0;
+.textarea {
+  min-height: var(--input-height);
+  padding: 18px 16px;
+  resize: none;
 }
 
-.react-select-container {
+/* .input {
+  height: var(--input-height);
 }
-.react-select-container .react-select__control {
-    font-family: var(--fontFamily);
-    font-size: 12px;
-    line-height: 16px;
-    width: 100%;
-    background-color: var(--bgColor)!important;
-    border-radius: var(--defaultRaduis)!important;
-    border: 1px solid var(--gray-30)!important;
-    width: 100%;
-    box-shadow: none;
-    min-height: var(--input-height);
+
+.textarea {
+  min-height: var(--input-height);
+} */
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--placeholder-color);
 }
-.react-select-container .react-select__value-container {
-  padding: 4px 16px;
+
+.input--xs {
+  --padding-x: 12px;
+  --input-height: var(--input-xs);
+  --input-fs: var(-fs-xs);
+  --ico-size: 20px;
 }
-.react-select-container .react-select__placeholder {
-    font-size: 12px;
-    line-height: 16px;
-    color: var(--gray-30);
-    margin: 0;
+
+.input--sm {
+  --padding-x: var(--gap-xs);
+  --input-height: var(--input-sm);
+  --input-fs: var(--fs-sm);
+  --ico-size: 22px;
 }
-.react-select-container .react-select__single-value {
-  color: var(--defaultTextColor);
+
+.input--md {
+  --padding-x: var(--gap-sm);
+  --input-height: var(--input-md);
+  --input-fs: var(--fs-md);
+  --ico-size: 22px;
 }
-.react-select-container .react-select__control.react-select__control--menu-is-open .react-select__indicators {
-  transform: rotate(180deg);
+
+.input--lg {
+  --padding-x: var(--gap-sm);
+  --input-height: var(--input-lg);
+  --input-fs: var(--fs-sm);
+  --ico-size: 24px;
 }
-.react-select-container .react-select__indicators {}
-.react-select-container .react-select__menu {
-  background-color: var(--bgColor)!important;
-  border: 1px solid var(--gray-30);
-  border-radius: 0 0 var(--defaultRaduis) var(--defaultRaduis);
-}
-.react-select-container .react-select__menu-list {}
-.react-select-container .react-select__option {}
-.react-select-container .react-select__option--is-focused.react-select__option,
-.react-select-container .react-select__option:hover
- {
-  background-color: var(--primary);
-  color: var(--white);
+
+.input--xl {
+  --padding-x: var(--gap-md);
+  --input-height: var(--input-xl);
+  --input-fs: var(--fs-md);
+  --ico-size: 26px;
 }
 
 input,
 button,
 textarea {
-  font-family: var(--fontFamily);
-}
-.input::placeholder,
-.textarea::placeholder {
-  color: var(--gray-30);
-}
-.textarea {
-  resize: none;
+  font-family: var(--def-ff);
 }
 
-.textarea.invalid,
-.input.invalid {
-  background-color: var(--input-bg-danger);
-  border: 1px solid var(--danger);
+.input--outline .input,
+.input--outline .textarea {
+  border: 1px solid var(--border-color);
+  background-color: var(--grey-10);
+}
+.input--outline .input-icon {
+  color: var(--primary);
 }
 
-.input:disabled {
-  opacity: 0.5;
+.input--rounded {
+  --input-radius: var(--def-radius);
 }
 
-.react-datepicker__wrapper {
+
+/* labels */
+
+.label {
+  display: block;
+  color: var(--grey-30);
+  font-weight: 500;
+  font-size: var(--fs-sm);
+}
+
+.form-group .input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.form-group .input-icon.input-icon--left {
+  left: 0;
+}
+
+.form-group .input-icon.input-icon--right {
+  right: 0;
+}
+
+.form-group:has(.input-icon--left) .input {
+  padding-left: calc(var(--ico-size) + var(--padding-x) + var(--gap));
+}
+
+.form-group:has(.input-icon--right) .input {
+  padding-right: calc(var(--ico-size) + var(--padding-x) + var(--gap));
+}
+
+/* -------- select -----------  */
+
+.react-select-container {
+}
+
+.react-select-container .react-select__control {
+  font-family: var(--def-ff);
+  font-size: var(--input-fs);
+  line-height: var(--def-lh);
+  width: 100%;
+  background-color: var(--bg-color) !important;
+  border-radius: var(--def-radius) !important;
+  border: 1px solid var(--grey-30) !important;
+  width: 100%;
+  box-shadow: none;
+  min-height: var(--input-height);
+}
+
+.react-select-container .react-select__value-container {
+  padding: 0 var(--gap-sm);
+}
+
+.react-select-container .react-select__placeholder {
+  font-size: var(--input-fs);
+  line-height: var(--def-lh);
+  color: var(--placeholder-color);
+  margin: 0;
+}
+
+.react-select-container .react-select__single-value {
+  color: var(--def-text-color);
+}
+
+.react-select-container .react-select__control.react-select__control--menu-is-open .react-select__indicators {
+  transform: rotate(180deg);
+}
+
+.react-select-container .react-select__indicators {}
+
+.react-select__menu-portal .react-select__menu {
+  background-color: var(--bg-color) !important;
+  border: 1px solid var(--grey-30);
+  border-radius: 0 0 var(--def-radius) var(--def-radius);
+  z-index: 100;
+}
+
+.react-select__menu-portal .react-select__menu-list {
+}
+.react-select__menu-portal {
+  z-index: 999!important;
+}
+
+.react-select__menu-portal .react-select__option {
+  font-size: var(--input-fs);
+  line-height: var(--def-lh);
+}
+
+.react-select__menu-portal .react-select__option--is-focused.react-select__option,
+.react-select__menu-portal .react-select__option:hover {
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: var(--input-fs);
+  line-height: var(--def-lh);
+}
+
+/* ------------- datepicker ---------- */
+
+.react-datepicker-wrapper {
   width: 100%;
 }
 .react-datepicker__input-container {
   display: flex;
 }
+.react-datepicker__input-container input {
+  width: 100%;
+  height: var(--input-height);
+  font-size: var(--input-fs);
+  padding: var(--padding-x);
+  border-radius: var(--input-radius);
+  background-color: transparent;
+}
+.input--outline .react-datepicker__input-container input {
+  border: 1px solid var(--border-color);
+  background-color: var(--grey-10);
+  color: var(--def-text-color);
+}
+
+
+/* ----------- autocomplete -------------- */
+
+.autocomplete-container {
+  position: relative;
+}
+
+.autocomplete-container.autocomplete-container--open input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+}
+
+.autocomplete-container.autocomplete-container--open button {
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+}
+
+.suggestions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: var(--input-height);
+  background-color: var(--grey-10);
+  border-radius: var(--def-radius);
+  border: 1px solid var(--grey-30);
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-top: none;
+  width: 100%;
+  max-width: 100%;
+  overflow-y: auto;
+  z-index: 1;
+  color: var(--def-text-color);
+}
+
+.suggestions-list li {
+  padding: 8px;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 14px 16px;
+  cursor: pointer;
+}
+
+.suggestions-list li:is(:hover, .selected) {
+  background-color: var(--primary);
+}
+

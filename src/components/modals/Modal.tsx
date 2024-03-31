@@ -1,6 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import "../modals/modal.css";
-
+import { useEffect, useState } from "react";
 interface IModalProps {
   title: string;
   show: boolean;

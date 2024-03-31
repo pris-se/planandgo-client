@@ -1,48 +1,41 @@
-import React from "react";
 import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Link,
-  Route,
+	createBrowserRouter,
+	createRoutesFromElements,
+	Route
 } from "react-router-dom";
-import { AuthPage } from "./AuthPage/AuthPage";
-import { SignIn } from "./AuthPage/SignIn";
-import { SignUp } from "./AuthPage/SignUp";
-import { Loader } from "../components/Loader";
 import { MainLayout } from "../layouts/MainLayout";
-import { AllTasksPage } from "./TaskPage/AllTasksPage";
-import { CreateTaskPage } from "./TaskPage/CreateTaskPage";
-import { EditTaskPage } from "./TaskPage/EditTaskPage";
-import { UserPage } from "./UserPage/UserPage";
-import { NotFound } from "./NotFoundPage";
-import { TaskPage } from "./TaskPage/TaskPage";
-import { MyTasksPage } from "./TaskPage/MyTasksPage";
-import { Calendar } from "./Calendar";
-import { AllUsersPage } from "./UserPage/AllUsersPage";
+import { ProtectedRouteLayout } from "../layouts/ProtectedRouteLayout";
+import { Pages } from "./index"
 
 
 export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<MainLayout />}>
-        <Route path="/auth" element={<AuthPage />}>
-          <Route index element={<SignIn />} />
-          <Route path="register" element={<SignUp />} />
-        </Route>
-        <Route path="/" element={<UserPage />} />
-        <Route path="/users" element={<AllUsersPage />} />
-        <Route path="/user/:id" element={<UserPage />} />
-        <Route path="/tasks">
-          <Route index element={<AllTasksPage />} />
-          <Route path="my" element={<MyTasksPage />} />
-          <Route path="create" element={<CreateTaskPage />} />
-          <Route path=":id" element={<TaskPage />} />
-          <Route path="edit/:id" element={<EditTaskPage />} />
-        </Route>
-        <Route path="/calendar" element={<Calendar />} />
-      </Route>
-      <Route path="/*" element={<NotFound />} />
-      <Route path="/loader" element={<Loader />} />
-    </>
-  )
+	createRoutesFromElements(
+		<>
+			<Route path="/" element={<MainLayout />}>
+				<Route path="/auth" element={<Pages.AuthPage />}>
+					<Route index element={<Pages.SignIn />} />
+					<Route path="register" element={<Pages.SignUp />} />
+				</Route>
+				<Route element={<ProtectedRouteLayout />}>
+					<Route index element={<Pages.FeedPage />} />
+					<Route path="users">
+						<Route index element={<Pages.UsersPage />} />
+						<Route path=":id" element={<Pages.ProfilePage />} />
+					</Route>
+					<Route path="settings" element={<Pages.Settings />} />
+					<Route path="tasks">
+						<Route index element={<Pages.TasksPage />} />
+						{/* TODO path */}
+						<Route path="create" element={<Pages.CreateTaskPage />} />
+						<Route path=":id" element={<Pages.TaskPage />} />
+						<Route path="edit/:id" element={<Pages.EditTaskPage />} />
+					</Route>
+					<Route path="/events" element={<Pages.EventsPage />} />
+					{/* <Route path="/calendar" element={<Pages.Calendar />} /> */}
+					<Route path="/messages" element={<Pages.MessagesPage />} />
+				</Route>
+			</Route>
+			<Route path="/*" element={<Pages.NotFound />} />
+		</>
+	)
 );

@@ -1,38 +1,130 @@
 :root {
-  --fc-border-color: var(--gray-30);
-  --fc-daygrid-event-dot-width: 5px;
-  --fc-small-font-size: .85em;
-  --fc-page-bg-color: #fff;
-  --fc-neutral-bg-color: hsla(0,0%,82%,.3);
-  --fc-neutral-text-color: var(--gray-30);
-  --fc-border-color: #ddd;
-  --fc-button-text-color: #fff;
-  --fc-button-bg-color: var(--primary);
-  --fc-button-border-color: var(--primary);
-  --fc-button-hover-bg-color: #1e2b37;
-  --fc-button-hover-border-color: #1a252f;
-  --fc-button-active-bg-color: #1a252f;
-  --fc-button-active-border-color: #151e27;
-  --fc-event-bg-color:var(--primary);
-  --fc-event-border-color: var(--primary);
-  --fc-event-text-color: #fff;
-  --fc-event-selected-overlay-color: rgba(0,0,0,.25);
-  --fc-more-link-bg-color: #d0d0d0;
-  --fc-more-link-text-color: inherit;
-  --fc-event-resizer-thickness: 8px;
-  --fc-event-resizer-dot-total-width: 8px;
-  --fc-event-resizer-dot-border-width: 1px;
-  --fc-non-business-color: hsla(0,0%,84%,.3);
-  --fc-bg-event-color: #8fdf82;
-  --fc-bg-event-opacity: 0.3;
-  --fc-highlight-color: rgba(188,232,241,.3);
-  --fc-today-bg-color: var(--headerColor);
-  /* --fc-today-bg-color: var(--secondary); */
-  --fc-now-indicator-color: var(--danger);
+	--fc-border-color: var(--grey-30);
+	--fc-daygrid-event-dot-width: 5px;
+	--fc-small-font-size: 0.85em;
+	--fc-page-bg-color: #fff;
+	--fc-neutral-bg-color: hsla(0, 0%, 82%, 0.3);
+	--fc-neutral-text-color: var(--grey-30);
+	--fc-button-text-color: #fff;
+	--fc-button-bg-color: var(--primary);
+	--fc-button-border-color: var(--primary);
+	--fc-button-hover-bg-color: #1e2b37;
+	--fc-button-hover-border-color: #1a252f;
+	--fc-button-active-bg-color: #1a252f;
+	--fc-button-active-border-color: #151e27;
+	--fc-event-bg-color: var(--primary);
+	--fc-event-border-color: var(--primary);
+	--fc-event-text-color: #fff;
+	--fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
+	--fc-more-link-bg-color: #d0d0d0;
+	--fc-more-link-text-color: inherit;
+	--fc-event-resizer-thickness: 8px;
+	--fc-event-resizer-dot-total-width: 8px;
+	--fc-event-resizer-dot-border-width: 1px;
+	--fc-non-business-color: hsla(0, 0%, 84%, 0.3);
+	--fc-bg-event-color: #8fdf82;
+	--fc-bg-event-opacity: 0.3;
+	--fc-highlight-color: rgba(188, 232, 241, 0.3);
+	--fc-today-bg-color: var(--primary-light);
+	--fc-now-indicator-color: var(--danger);
 }
+
 a.fc-event {
-  cursor: pointer;
+	cursor: pointer;
 }
+
 .fc-day-today {
-  color: #1a252f!important;
+	color: #1a252f !important;
+}
+
+.calendar-page .container {
+	--container: 980px;
+}
+
+.fc-event.low {
+	background-color: var(--success);
+}
+
+.fc-event.medium {
+	background-color: var(--warning);
+}
+
+.fc-event.high {
+	background-color: var(--danger);
+}
+
+
+.datepicker.react-datepicker {
+	font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+	font-size: var(--fs-md);
+	background-color: var(--bg-color);
+	color: var(--def-text-color);
+	border: 1px solid var(--border-color);
+	border-radius: var(--def-radius);
+	display: inline-block;
+	position: relative;
+}
+
+.datepicker .react-datepicker__header {
+	background-color: var(--bg-color);
+	border-bottom: 1px solid var(--border-color);
+	border-top-left-radius: var(--def-radius);
+	padding: var(--gap-xs) 0;
+	position: relative;
+}
+
+
+.datepicker .react-datepicker__day--keyboard-selected,
+.datepicker .react-datepicker__month-text--keyboard-selected,
+.datepicker .react-datepicker__quarter-text--keyboard-selected,
+.datepicker .react-datepicker__year-text--keyboard-selected {
+	border-radius: var(--def-radius);
+	background-color: var(--primary);
+	color: var(--white);
+}
+
+.datepicker .react-datepicker__day-name,
+.datepicker .react-datepicker__day,
+.datepicker .react-datepicker__time-name {
+	color: var(--def-text-color);
+}
+
+.datepicker .react-datepicker__current-month,
+.datepicker .react-datepicker-time__header,
+.datepicker .react-datepicker-year-header {
+	color: var(--def-text-color);
+	font-weight: bold;
+	font-size: var(--fs-lg);
+}
+
+.datepicker .react-datepicker__day:hover,
+.react-datepicker__month-text:hover,
+.react-datepicker__quarter-text:hover,
+.react-datepicker__year-text:hover {
+	border-radius: var(--def-radius);
+	background-color: var(--primary-light);
+	color: var(--bg-color);
+}
+
+.datepicker .react-datepicker__day--today,
+.datepicker .react-datepicker__month-text--today,
+.datepicker .react-datepicker__quarter-text--today,
+.datepicker .react-datepicker__year-text--today {
+	font-weight: bold;
+	background-color: rgb(255, 255, 255, 0.2);
+}
+
+
+.events-page .react-datepicker__day-name,
+.events-page .react-datepicker__day,
+.events-page .react-datepicker__time-name {
+	width: var(--size-md);
+	line-height: var(--size-md);
+}
+
+.react-datepicker__time-container .react-datepicker__time {
+	background: var(--bg-color);
+}
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+	background-color: var(--primary);
 }

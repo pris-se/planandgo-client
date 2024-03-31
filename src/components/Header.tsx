@@ -1,42 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { links } from "../data/data";
 import { useOnClickOutside } from "../hooks/useClickOutside";
+import { checkIsAuth, logout } from "../redux/features/profile";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { checkIsAuth, logout } from "../redux/slices/authSlice";
 import { Button } from "./ui/Button";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 import { ReactComponent as Logo } from "../assets/img/logo.svg";
 import { ReactComponent as LogoutIcon } from "../assets/img/logout.svg";
-import { ThemeSwitch } from "./ui/ThemeSwitch";
-
-
-const links = [
-    {
-        route: "/users",
-        name: "Users"
-    },
-    {
-        route: "/tasks/my",
-        name: "My tasks"
-    },
-    {
-        route: "/tasks",
-        name: "Community tasks"
-    },
-    {
-        route: "/calendar",
-        name: "Calendar"
-    },
-]
 
 export const Header = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const dropdown = useRef<HTMLDivElement>(null);
     const { pathname } = useLocation()
-    const me = useAppSelector((state) => state.auth.me);
+    const me = useAppSelector((state) => state.profile.me);
     const isAuth = useAppSelector(checkIsAuth);
-
     const [open, setOpen] = useState(false);
     const [dropdownisOpen, setDropdownisOpen] = useState(false);
 
@@ -51,7 +31,10 @@ export const Header = () => {
     useEffect(() => {
         setOpen(false);
         setDropdownisOpen(false);
+
     }, [pathname]);
+
+
     useEffect(() => {
         if (open) {
             document.querySelector("body")?.classList.add("lock");
@@ -91,28 +74,45 @@ export const Header = () => {
                         <ThemeSwitch />
                         {(me && isAuth) && (
                             <div className="dropdown" ref={dropdown}>
-                                <div
-                                    className="header__avatar cursor-pointer"
+                                <Button
                                     onClick={() => setDropdownisOpen(!dropdownisOpen)}
+                                    className="btn btn--square btn--md"
                                 >
-                                    <img
-                                        src={
-                                            me?.img
-                                                ? process.env.REACT_APP_BASE_IMAGE_URL + me?.img
-                                                : "/img/placeholder.png"
-                                        }
-                                        alt={me?.username}
-                                    />
-                                </div>
+                                    <div
+                                        className="header__avatar"
+                                    >
+                                        <img
+                                            src={
+                                                me?.avatar
+                                                    ? process.env.REACT_APP_BASE_IMAGE_URL + me?.avatar
+                                                    : "/img/placeholder.png"
+                                            }
+                                            alt={me?.username}
+                                        />
+                                    </div>
+                                </Button>
                                 {dropdownisOpen && (
-                                    <div className="dropdown-body w-60" >
-                                        <div>
-                                            <h4>{me.username}</h4>
-                                            <p className="text-info">{me.email}</p>
+                                    <div className="dropdown-body w-72">
+                                        <div className="row-group gap--sm">
+                                            <div className="ico ico--lg image-wrapper rounded">
+                                                <img
+                                                    src={
+                                                        me?.avatar
+                                                            ? process.env.REACT_APP_BASE_IMAGE_URL + me?.avatar
+                                                            : "/img/placeholder.png"
+                                                    }
+                                                    alt={me?.username}
+                                                />
+                                            </div>
+                                            <div className="col-group gap--xs">
+                                                <h5>{me.username}</h5>
+                                                <p className="fs--xs">{me.email}</p>
+                                            </div>
                                         </div>
+                                        <hr />
                                         <Link
-                                            to={"/"}
-                                            className="btn radius btn--md btn--outline-primary"
+                                            to={`/users/${me._id}`}
+                                            className="btn rounded btn--sm btn--primary"
                                         >
                                             <span className="ico">
                                                 <svg
@@ -127,33 +127,37 @@ export const Header = () => {
                                                     />
                                                 </svg>
                                             </span>
-                                            <span>Profile</span>
+                                            <span className="info">Profile</span>
                                         </Link>
                                         <Button
-                                            classes="btn--outline-danger btn--md"
+                                            classes="btn--danger btn--sm"
                                             onClick={logoutHandler}
                                             title=""
                                         >
                                             <span className="ico">
                                                 <LogoutIcon />
                                             </span>
-                                            <span>Logout</span>
+                                            <span className="info">Logout</span>
                                         </Button>
                                     </div>
                                 )}
                             </div>
                         )}
                         {!isAuth && (
-                            <Link to="/auth" className="btn btn--primary radius btn--md">
+                            <Link to="/auth" className="btn btn--primary rounded btn--md">
                                 Sign in / Sign up
                             </Link>
                         )}
                         {isAuth && (
                             <div
-                                className={open ? "header__burger active" : "header__burger"}
                                 onClick={() => setOpen(!open)}
+                                className="header__burger-wrapper btn btn--square btn--md"
                             >
-                                <span></span>
+                                <div
+                                    className={open ? "header__burger active" : "header__burger"}
+                                >
+                                    <span></span>
+                                </div>
                             </div>
                         )}
                     </div>
