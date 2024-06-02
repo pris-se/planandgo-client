@@ -2,16 +2,20 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { API } from "../../../api";
 import axios from "../../../utils/axios";
-import { IMessage } from "../../../interfaces";
 
 type KnownError = string;
 
+interface ChatCreationBody {
+    participantId: string
+    title: string
+    type?: string
+}
 
-export const createMessageFetch = createAsyncThunk(
-    "messages/create-message",
-    async (params: IMessage, { rejectWithValue }) => {
+export const createChatFetch = createAsyncThunk(
+    "chats/create-chat",
+    async (params: ChatCreationBody, { rejectWithValue }) => {
         try {
-            const { data } = await axios.post(API.createMessage, params);
+            const { data } = await axios.post(API.createChat, params);
             return data;
         } catch (error) {
             const err = error as AxiosError<KnownError>;
@@ -19,11 +23,11 @@ export const createMessageFetch = createAsyncThunk(
         }
     }
 );
-export const getMessagesByChatIdFetch = createAsyncThunk(
-    "messages/get-messages",
-    async (chatId: string, { rejectWithValue }) => {
+export const getChatsFetch = createAsyncThunk(
+    "chats/get-chats",
+    async (params, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get(API.getMessagesByChatId(chatId));
+            const { data } = await axios.get(API.getChats);
             return data;
         } catch (error) {
             const err = error as AxiosError<KnownError>;

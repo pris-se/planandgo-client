@@ -8,7 +8,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.6s ease;
+    transition-duration: 0.6s;
+    transition-timing-function: ease;
+    transition-property: opacity, border-color, color;
     text-align: center;
     gap: var(--gap-xs);
     --btn-height: unset;
@@ -103,6 +105,7 @@
     font-size: 22px;
     --btn-height: var(--btn-xl);
     border-radius: var(--def-radius);
+    opacity: 0.6;
 }
 
 .link {

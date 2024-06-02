@@ -104,7 +104,7 @@ export const Header = () => {
                                                     alt={me?.username}
                                                 />
                                             </div>
-                                            <div className="col-group gap--xs">
+                                            <div className="col-group">
                                                 <h5>{me.username}</h5>
                                                 <p className="fs--xs">{me.email}</p>
                                             </div>

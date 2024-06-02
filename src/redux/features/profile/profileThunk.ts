@@ -74,10 +74,7 @@ export const updateUser = createAsyncThunk(
     async ({ formData, _id }: { formData: FormData, _id: string }, { rejectWithValue }) => {
 
         try {
-            const { data } = await axios.put(
-                `/api/profile/${_id}`,
-                formData
-            );
+            const { data } = await axios.put(API.updateProfile, formData);
             if (data.token) {
                 window.localStorage.setItem("token", data.token);
             }

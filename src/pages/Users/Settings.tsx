@@ -51,7 +51,8 @@ export const Settings = () => {
         }
         const formData = objectToFormData(data)
         formData.delete("avatar")
-
+        console.log(image, typeof image);
+        
         if (image instanceof File) {
             formData.append('avatar', image);
         }
@@ -64,11 +65,9 @@ export const Settings = () => {
 
 
         try {
-            const res = await dispatch(updateUser({ formData, _id: me?._id }));
-            console.log(res);
-            const updated = await dispatch(getMe())
-            if (updated && !isLoading) {
-                navigate("/" ?? "error");
+            const res = await dispatch(updateUser({ formData, _id: me?._id })).unwrap()
+            if (res && !isLoading) {
+                navigate(`/users/${me._id}` ?? "error");
             }
         } catch (error) {
             console.log(error);
@@ -115,7 +114,7 @@ export const Settings = () => {
                                         />
                                     </div>
                                     <div className="text-primary font-semibold">
-                                        {!image ? "Upload a task’s photo" : "Change a photo"}
+                                        {!image ? "Upload a photo" : "Change a photo"}
                                     </div>
                                     <input
                                         type="file"

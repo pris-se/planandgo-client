@@ -162,7 +162,7 @@
 }
 
 .header__avatar {
-	--size: var(--ico-xs);
+	--size: var(--ico-md);
 	width: var(--size);
 	height: var(--size);
 	min-width: var(--size);

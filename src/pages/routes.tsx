@@ -32,7 +32,9 @@ export const router = createBrowserRouter(
 					</Route>
 					<Route path="/events" element={<Pages.EventsPage />} />
 					{/* <Route path="/calendar" element={<Pages.Calendar />} /> */}
-					<Route path="/messages" element={<Pages.MessagesPage />} />
+					<Route path="/messages" element={<Pages.MessagesPage />}>
+						<Route index path=":chatId" element={<Pages.MessagesBody />} />
+					</Route>
 				</Route>
 			</Route>
 			<Route path="/*" element={<Pages.NotFound />} />

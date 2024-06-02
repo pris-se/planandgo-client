@@ -25,8 +25,8 @@ body.lock {
 }
 
 *::-webkit-scrollbar {
-    height: 4px;
     width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
 }
 
 *::-webkit-scrollbar-track {
@@ -35,6 +35,8 @@ body.lock {
 
 *::-webkit-scrollbar-thumb {
     background: var(--grey-30);
+    border-radius: var(--def-radius);
+ 
 }
 
 *::-webkit-scrollbar-thumb:hover {
@@ -118,6 +120,9 @@ hr {
 
 .color-white {
     color: var(--white);
+}
+.color-danger {
+    color: var(--danger);
 }
 
 .row-group {

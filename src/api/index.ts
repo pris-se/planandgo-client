@@ -10,7 +10,11 @@ export const API = {
   getUserById: (id: string) => `/api/users/${id}`,
   //chats
   getChats: "/api/chats",
+  createChat: "/api/chats",
   getChatById: (id: string) => `/api/chats/${id}`,
+  //messages
+  getMessagesByChatId: (chatId: string) => `/api/messages/${chatId}`,
+  createMessage: "/api/messages",
   //tasks
   getTasks: (query: string) => `/api/tasks?${query}`,
   getTaskById: (id: string) => `/api/tasks/${id}`,

@@ -4,6 +4,8 @@ import { userSlice } from './features/users';
 import { tasksSlice, taskSlice } from './features/tasks';
 import { eventSlice } from './features/events';
 import { settingsSlice } from './features/settings';
+import { chatSlice, chatsSlice } from './features/chats';
+import { messageSlice, messagesSlice } from './features/messages';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +15,10 @@ export const store = configureStore({
     profile: profileSlice.reducer,
     settings: settingsSlice.reducer,
     events: eventSlice.reducer,
+    chats: chatsSlice.reducer,
+    chat: chatSlice.reducer,
+    messages: messagesSlice.reducer,
+    message: messageSlice.reducer
   },
 })
 

@@ -13,7 +13,7 @@
     /* Background Colors */
     --bg-color: var(--white);
     --header-bg-color: var(--primary-light);
-    --scrollbar-width: 10px;
+    --scrollbar-width: 4px;
     
     /* Colors */
     --white: #F5F5F5;

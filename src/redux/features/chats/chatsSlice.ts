@@ -1,48 +1,49 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { createMessageFetch, getMessagesByChatIdFetch } from './messagesThunk';
+import { createChatFetch, getChatsFetch } from './chatsThunk';
 import { RootState } from '../../store';
-import { IChat, IMessage } from '../../../interfaces';
+import { IChat } from '../../../interfaces';
 
 
 interface PayloadType {
-    data: IMessage[];
-    message: string
+    chats: IChat[];
     token: string;
+    message: string;
 }
 
 
-interface MessagesState {
-    data: IMessage[];
+interface ChatsState {
+    chats: IChat[];
     isLoading: boolean;
     error: string | null;
     status?: string
 }
 
-const initialState: MessagesState = {
+const initialState: ChatsState = {
+    chats: [],
     isLoading: false,
     error: null,
-    data: []
 };
 
 
-export const messagesSlice = createSlice({
+export const chatsSlice = createSlice({
     name: 'chats',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getMessagesByChatIdFetch.pending, (state) => {
+        // Get Chats
+        builder.addCase(getChatsFetch.pending, (state) => {
             state.isLoading = true;
         });
         builder.addCase(
-            getMessagesByChatIdFetch.fulfilled,
+            getChatsFetch.fulfilled,
             (state, { payload }: PayloadAction<PayloadType>) => {
                 state.isLoading = false;
-                state.data = payload.data
+                state.chats = payload.chats
                 state.status = payload?.message;
             }
         );
         builder.addCase(
-            getMessagesByChatIdFetch.rejected,
+            getChatsFetch.rejected,
             (state, { payload }: PayloadAction<any>) => {
                 state.isLoading = false;
                 state.status = payload?.message;
@@ -52,4 +53,4 @@ export const messagesSlice = createSlice({
 });
 
 
-export const { } = messagesSlice.actions;
+export const { } = chatsSlice.actions;

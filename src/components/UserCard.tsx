@@ -1,8 +1,7 @@
-import React from 'react'
-import { User } from '../interfaces'
-import { Link } from 'react-router-dom'
-import { formatDate } from '@fullcalendar/core'
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 import placeholderImage from "../assets/img/placeholder.png";
+import { User } from '../interfaces';
 import { getImageUrl } from '../utils/helpers';
 
 
@@ -31,14 +30,7 @@ export const UserCard = ({ user }: Props) => {
 							<span className="font-semibold">Member since: </span>
 							{
 								user?.createdAt &&
-								formatDate(
-									new Date(user?.createdAt),
-									{
-										day: "2-digit",
-										month: "short",
-										year: 'numeric'
-									}
-								)}
+								moment(user.createdAt).format("DD MMM, YYYY")}
 						</span>
 						<span className="card-info font-semibold">
 							<span className={user.status === "online" ? "text-success" : ""}>{user.status}</span>

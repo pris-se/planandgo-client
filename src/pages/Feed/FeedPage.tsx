@@ -1,13 +1,58 @@
-import { formatDate } from '@fullcalendar/core';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '../../components/ui/Button';
 import { getEvents } from '../../redux/features/events';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getImageUrl } from '../../utils/helpers';
 import { LoaderPage } from '../common/LoaderPage';
 
-import placeholderImage from "../../assets/img/placeholder.png";
+import EventCard from '../../components/EventCard';
+import { Event } from '../../interfaces';
+import moment, { duration } from 'moment';
+
+interface GroupedEvents {
+	[date: string]: Event[];
+}
+
+const EventList = ({ events }: { events: Event[] }) => {
+	const sortedEvents = [...events].sort((a, b) => +new Date(b.end) - +new Date(a.end));
+
+	const today = moment().format("DD MMM, yyyy");
+	const yesterday = moment().subtract(1, 'days').format("DD MMM, yyyy")
+
+
+	const groupedEvents: GroupedEvents = {};
+	sortedEvents.forEach((event) => {
+		const date = moment(event.end).format("DD MMM, yyyy");
+
+		console.log(date, event.end);
+
+		if (!groupedEvents[date]) {
+			groupedEvents[date] = [];
+		}
+		if (+event.end > +moment()) {
+			groupedEvents[today].push(event);
+		} else {
+			groupedEvents[date].push(event);
+		}
+	});
+
+
+	return (
+		<div>
+			{Object.entries(groupedEvents).map(([date, events]) => (
+				<div key={date}>
+					<h3 className='mb-4 color-gray-30'>{date === today ? 'Today' : date === yesterday ? "Yesterday" : date}</h3>
+					<div className='row row--lg mb-5'>
+						{events.map((event, idx) => (
+							<div className='col-xl-3 col-lg-4 col-sm-6' key={idx}>
+								<EventCard event={event} />
+							</div>
+
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	);
+};
 
 export const FeedPage = () => {
 	const { events, isLoading } = useAppSelector(state => state.events)
@@ -23,38 +68,17 @@ export const FeedPage = () => {
 	return (
 		<section className='section'>
 			<div className="container container-sm">
-				<h2 className="page-heading">Feed Page</h2>
-				<div className="col-group gap--md">
+				<div className="page-heading">
+					<h2 className='page-title'>Feed Page</h2>
+				</div>
+
+				<div className="row row--lg">
 					{
 						events ?
-							events.map((event) => (
-								<div className="feed-items" key={event._id}>
-									<div className="feed-item col-group gap--sm">
-										<div className="row-group gap--sm">
-											<img src={event.task.img ? getImageUrl(event.task.img) : placeholderImage} alt="User Avatar" className="w-10 h-10 rounded-full mr-2" />
-											<span className="font-semibold text-lg">{event.task.title}</span>
-										</div>
-										<h4>{event.status}</h4>
-										<div className="post-content col-group gap--xs">
-											{formatDate(event.start, { hour: "numeric", minute: "numeric" })}
-											{/* {formatDate(event.end)} */}
-										</div>
-										<div className="row-group gap--sm">
-											<Link
-												to={"/tasks/" + event.task._id ?? "error"}
-												className="btn btn--xs btn--primary rounded"
-												key={event.task._id}
-											>
-												View
-											</Link>
-											<Button classes='btn--xs btn--primary rounded'>Assign</Button>
-											<Button classes='btn--xs btn--primary rounded'>Share</Button>
-										</div>
-									</div>
-								</div>
-							))
+							<EventList events={events} />
 							:
 							<p>Empty feed</p>
+
 					}
 				</div>
 			</div>

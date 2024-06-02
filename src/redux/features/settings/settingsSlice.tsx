@@ -9,7 +9,7 @@ interface SettingsState {
 
 const initialState = {
     isDarkMode: window.localStorage.getItem("isDarkMode") == "true" || window.matchMedia('(prefers-color-scheme: dark)').matches,
-    isListView: window.localStorage.getItem("isDarkMode") == "true",
+    isListView: window.localStorage.getItem("isListView") == "true",
   } as SettingsState;
 
 

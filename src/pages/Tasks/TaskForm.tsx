@@ -70,6 +70,10 @@ export const TaskForm = ({ task, handleSubmitProps, setTaskPreview }: TaskFormPr
 		setImage("");
 	}
 
+	const changeHandler = (name: string, value: File | string | number) => {
+		setTaskPreview((prev: any) => ({ ...prev, [name]: value }))
+	}
+
 	// const generateHandler = async () => {
 	//   if (prompt.length > 3) {
 	//     try {
@@ -116,8 +120,9 @@ export const TaskForm = ({ task, handleSubmitProps, setTaskPreview }: TaskFormPr
 								className="hidden"
 								{...register("img")}
 								onChange={(e) => {
+									register("img").onChange(e)
 									setImage(e.target?.files?.[0] || "")
-									setTaskPreview((prev: Object) => ({ ...prev, img: getImageUrl(e.target?.files?.[0] || "") }))
+									changeHandler("img", e.target?.files?.[0] || "")
 								}}
 							/>
 						</label>
@@ -139,6 +144,10 @@ export const TaskForm = ({ task, handleSubmitProps, setTaskPreview }: TaskFormPr
 						title="Task title"
 						error={errors?.title?.message}
 						{...register("title")}
+						onChange={(e) => {
+							register("title").onChange(e)
+							changeHandler("title", e.target.value)
+						}}
 					/>
 				</div>
 				{/* description */}
@@ -146,6 +155,10 @@ export const TaskForm = ({ task, handleSubmitProps, setTaskPreview }: TaskFormPr
 					<TextArea
 						title="Task description"
 						{...register("description")}
+						onChange={(e) => {
+							register("description").onChange(e)
+							changeHandler("description", e.target.value)
+						}}
 					/>
 				</div>
 				{/* labels */}
@@ -161,6 +174,10 @@ export const TaskForm = ({ task, handleSubmitProps, setTaskPreview }: TaskFormPr
 												type="radio"
 												className="hidden"
 												{...register("category")}
+												onChange={(e) => {
+													register("category").onChange(e)
+													changeHandler("category", e.target.value)
+												}}
 												value={value}
 											/>
 											<div className="badge">{value}</div>

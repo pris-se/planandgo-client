@@ -9,7 +9,7 @@ import { InputDate } from "../../components/ui/InputDate";
 import { Event, Task } from "../../interfaces";
 import { createEvent } from "../../redux/features/events";
 import { useAppDispatch } from "../../redux/hooks";
-import { calcDuration, formatTime } from "../../utils/time";
+import { calcDuration, formatTime, isDateToday } from "../../utils/time";
 
 interface IProps {
 	task: Task;
@@ -31,9 +31,10 @@ export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
 
 	useEffect(() => {
 		const duration = calcDuration(date.start, date.end);
-		if (duration) {
+		if (typeof duration === "number") {
 			setDuration(duration);
 		}
+
 	}, [date]);
 
 	const assignTaskHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -59,6 +60,14 @@ export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
 		}
 	};
 
+	const dateChangeHandler = (name: "start" | "end", value: Date | null) => {
+		if (!value) return;
+		if (name === "start" && date.start > date.end) {
+			setDate((prev) => ({ ...prev, "end": value }))
+		}
+		setDate((prev) => ({ ...prev, [name]: value }))
+	}
+
 	return (
 		<Modal
 			show={show}
@@ -75,10 +84,11 @@ export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
 								title="Select start date"
 								name="start"
 								value={date.start}
+								minDate={new Date()}
+								minTime={isDateToday(date.start) ? new Date(new Date().getTime()) : undefined}
+								maxTime={isDateToday(date.start) ? new Date(new Date().setHours(23, 55)) : undefined}
 								showTimeSelect
-								onChange={(date) => date &&
-									setDate((prev) => ({ ...prev, start: date }))
-								}
+								onChange={(date) => dateChangeHandler("start", date)}
 							/>
 						</div>
 						{/* Ending time */}
@@ -88,7 +98,7 @@ export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
 								name="end"
 								value={date.end}
 								showTimeSelect
-								onChange={(date) => date && setDate((prev) => ({ ...prev, end: date }))}
+								onChange={(date) => dateChangeHandler("end", date)}
 								minDate={date.start}
 								minTime={date.start}
 								maxTime={new Date(new Date().setHours(23, 59))}

@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { IMessage } from '../interfaces';
 
 
 const WS_URL = process.env.REACT_APP_BASE_WS_URL || "ws://localhost:3005"
 
-export interface MessageData {
-    _id: string
-    content: string
-    userId: string
-    timestamp: string
-}
+
 
 interface WebSocketHook {
     sendMessage: (message: string) => void;
-    receivedMessage: MessageData | null;
+    receivedMessage: IMessage | null;
 }
 
 
 
 export const useWebSocket = (): WebSocketHook => {
     const [socket, setSocket] = useState<WebSocket | null>(null);
-    const [receivedMessage, setReceivedMessage] = useState<MessageData | null>(null);
+    const [receivedMessage, setReceivedMessage] = useState<IMessage | null>(null);
+
 
     useEffect(() => {
         const newSocket = new WebSocket(WS_URL);
-        
+
         newSocket.onopen = () => {
             console.log('WebSocket connection open.');
         };
 
         newSocket.onmessage = (event) => {
             console.log('Received message:', event.data);
-            const messageData: MessageData = JSON.parse(event.data)
+            const messageData: IMessage = JSON.parse(event.data)
             setReceivedMessage(messageData);
         };
 
