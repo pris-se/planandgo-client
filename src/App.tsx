@@ -14,8 +14,7 @@ function App() {
 
 	useEffect(() => {
 		const chatIdFromUrl = window.location.href.split('/').pop();
-		// if (receivedMessage && receivedMessage?.senderId !== me?._id && chatIdFromUrl !== receivedMessage?.chatId) {
-		if (receivedMessage) {
+		if (receivedMessage && receivedMessage?.senderId !== me?._id && chatIdFromUrl !== receivedMessage?.chatId) {
 			const { content, sender, chatId } = receivedMessage;
 
 			const notificationContent = (
