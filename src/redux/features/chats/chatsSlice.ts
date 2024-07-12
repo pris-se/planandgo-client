@@ -6,6 +6,7 @@ import { IChat } from '../../../interfaces';
 
 interface PayloadType {
     chats: IChat[];
+    chat: IChat;
     token: string;
     message: string;
 }
@@ -47,6 +48,12 @@ export const chatsSlice = createSlice({
             (state, { payload }: PayloadAction<any>) => {
                 state.isLoading = false;
                 state.status = payload?.message;
+            }
+        );
+        builder.addCase(
+            createChatFetch.fulfilled,
+            (state, { payload }: PayloadAction<PayloadType>) => {
+                state.chats.push(payload.chat)
             }
         );
     },

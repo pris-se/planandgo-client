@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { API } from "../../../api";
 import axios from "../../../utils/axios";
+import { toast } from "react-toastify";
 
 type KnownError = string;
 
@@ -16,9 +17,12 @@ export const createChatFetch = createAsyncThunk(
     async (params: ChatCreationBody, { rejectWithValue }) => {
         try {
             const { data } = await axios.post(API.createChat, params);
+            toast.success(data.message)
             return data;
+
         } catch (error) {
             const err = error as AxiosError<KnownError>;
+            toast.success(err?.response?.data)
             return rejectWithValue(err?.response?.data);
         }
     }

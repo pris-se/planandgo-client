@@ -31,6 +31,7 @@ export interface User {
     status?: 'online' | 'offline';
     role?: 'admin' | 'client';
     createdAt?: string,
+    lastSeen: Date | string,
 
 }
 

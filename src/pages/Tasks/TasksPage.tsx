@@ -1,14 +1,10 @@
 import { useEffect } from "react";
-import {
-	NavLink
-} from "react-router-dom";
 import { Loader } from "../../components/Loader";
 import { TaskCard } from "../../components/TaskCard";
 import { getTasks } from "../../redux/features/tasks";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { EmptyTaskPage } from "./EmptyTaskPage";
 
-import { ReactComponent as PlusIcon } from "../../assets/img/plus.svg";
 import { SearchFilters } from "../../components/SearchFilters";
 import { ViewTypeSwitch } from "../../components/ViewTypeSwitch";
 import { categories } from "../../data/data";
@@ -66,16 +62,6 @@ export const TasksPage = () => {
 					}
 				</div>
 			</div>
-
-			<NavLink
-				to="/tasks/create"
-				className={({ isActive }) =>
-					isActive ? "hidden" : "btn btn--create btn--square"
-				}
-			>
-				<PlusIcon />
-			</NavLink>
 		</>
-
 	);
 };

@@ -3,11 +3,11 @@ import Select, { GroupProps, PlaceholderProps, Props, PropsValue, SingleValue, c
 
 interface Option {
 	label: string;
-	value: string;
+	value: string | number;
 }
 
 interface SelectProps extends Props<Option, false> {
-	selectValue?: string | null;
+	selectValue?: string | number | null | undefined;
 	options: Option[];
 	// defaultValue?: PropsValue<Option>;
 	onSelect?: (option: Option | null) => void
@@ -17,11 +17,11 @@ const Placeholder = (props: PlaceholderProps<Option>) => {
 	return <components.Placeholder {...props} />;
 };
 
-export const CustomSelect = ({ options, selectValue, onSelect, isMulti = false, ...rest }: SelectProps) => {
+export const SelectBox = ({ options, selectValue, onSelect, isMulti = false, ...rest }: SelectProps) => {
 
 	const [value, setValue] = useState(findValue(selectValue));
 
-	function findValue(value: string | undefined | null) {
+	function findValue(value: string | number | undefined | null) {
 		return options.find((option) => option.value === value) || null;
 	}
 	function handleOnChange(option: SingleValue<Option>) {

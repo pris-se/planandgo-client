@@ -11,11 +11,11 @@ import { Pages } from "./index"
 export const router = createBrowserRouter(
 	createRoutesFromElements(
 		<>
+			<Route path="/auth" element={<Pages.AuthPage />}>
+				<Route index element={<Pages.SignIn />} />
+				<Route path="register" element={<Pages.SignUp />} />
+			</Route>
 			<Route path="/" element={<MainLayout />}>
-				<Route path="/auth" element={<Pages.AuthPage />}>
-					<Route index element={<Pages.SignIn />} />
-					<Route path="register" element={<Pages.SignUp />} />
-				</Route>
 				<Route element={<ProtectedRouteLayout />}>
 					<Route index element={<Pages.FeedPage />} />
 					<Route path="users">

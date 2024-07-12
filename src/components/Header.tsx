@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Button } from "./ui/Button";
 import { ThemeSwitch } from "./ThemeSwitch";
 
+import { ReactComponent as PlusIcon } from "../assets/img/plus.svg";
 import { ReactComponent as Logo } from "../assets/img/logo.svg";
 import { ReactComponent as LogoutIcon } from "../assets/img/logout.svg";
 
@@ -110,6 +111,15 @@ export const Header = () => {
                                             </div>
                                         </div>
                                         <hr />
+                                        <Link
+                                            to="/tasks/create"
+                                            className="btn rounded btn--sm btn--primary"
+                                        >
+                                            <span className="ico">
+                                                <PlusIcon />
+                                            </span>
+                                            <span className="info">Create Task</span>
+                                        </Link>
                                         <Link
                                             to={`/users/${me._id}`}
                                             className="btn rounded btn--sm btn--primary"

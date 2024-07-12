@@ -3,7 +3,9 @@ import { User } from "./User.interface";
 export interface IMessage {
     _id: string
     chatId: string;
+    recipients: string[];
     senderId: string;
+    sender?: User,
     content: string;
     media?: string;
     isRead?: boolean;

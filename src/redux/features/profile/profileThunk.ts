@@ -41,16 +41,23 @@ export const login = createAsyncThunk(
 );
 export const getMe = createAsyncThunk(
     "profile/me",
-    async (_, { rejectWithValue }) => {
+    async (_, { rejectWithValue, abort }) => {
         try {
+            const token = window.localStorage.getItem("token");
+            if (!token) {
+                abort();
+                return rejectWithValue('No token found');
+            }
             const { data } = await axios.get(API.getProfile);
             return data;
         } catch (error) {
             const err = error as AxiosError<KnownError>;
-            return rejectWithValue(err?.response?.data);
+            window.localStorage.removeItem("token");
+            return rejectWithValue(err?.response?.data || { message: 'An error occurred' });
         }
     }
 );
+
 export const resetPassword = createAsyncThunk(
     "profile/reset",
     async (email: string, { rejectWithValue }) => {

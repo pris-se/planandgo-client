@@ -18,26 +18,30 @@ export const AuthPage = () => {
 
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="flex justify-center color-primary mb-14">
-          <Logo />
-        </div>
-        <div className="max-w-[360px] mx-auto">
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={isRegister}
-              onChange={() => setIsRegister(!isRegister)}
-            />
-            <div className="slider">
-              <span className="switch-value">Log in</span>
-              <span className="switch-value">Sign Up</span>
+    <div className="wrapper">
+      <main className="content full-screen">
+        <section className="section full-center">
+          <div className="container">
+            <div className="flex justify-center color-primary mb-14">
+              <Logo />
             </div>
-          </label>
-          <Outlet />
-        </div>
-      </div>
-    </section>
+            <div className="max-w-[360px] mx-auto">
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={isRegister}
+                  onChange={() => setIsRegister(!isRegister)}
+                />
+                <div className="slider">
+                  <span className="switch-value">Log in</span>
+                  <span className="switch-value">Sign Up</span>
+                </div>
+              </label>
+              <Outlet />
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 };

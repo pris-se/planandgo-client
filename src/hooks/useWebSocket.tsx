@@ -1,53 +1,38 @@
-import { useEffect, useState } from 'react';
-import { IMessage } from '../interfaces';
+// useWebSocket.ts
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSocket, setReceivedMessage, clearSocket } from "../redux/features/websocket/websocketSlice"
+import { useAppSelector } from '../redux/hooks';
 
+const WS_URL = process.env.REACT_APP_BASE_WS_URL || "ws://localhost:3005";
 
-const WS_URL = process.env.REACT_APP_BASE_WS_URL || "ws://localhost:3005"
-
-
-
-interface WebSocketHook {
-    sendMessage: (message: string) => void;
-    receivedMessage: IMessage | null;
-}
-
-
-
-export const useWebSocket = (): WebSocketHook => {
-    const [socket, setSocket] = useState<WebSocket | null>(null);
-    const [receivedMessage, setReceivedMessage] = useState<IMessage | null>(null);
-
+export const useWebSocket = () => {
+    const userId = useAppSelector(state => state.profile.me?._id);
+    const dispatch = useDispatch();
+    const socket = useAppSelector((state) => state.websocket.socket);
 
     useEffect(() => {
-        const newSocket = new WebSocket(WS_URL);
+        let newSocket: WebSocket | null = null;
+        console.log(socket, userId, "----------");
 
-        newSocket.onopen = () => {
-            console.log('WebSocket connection open.');
-        };
+        if (userId && !socket) {
+            newSocket = new WebSocket(`${WS_URL}?userId=${userId}`);
+            newSocket.onopen = () => {
+                console.log('WebSocket connection open.');
+                dispatch(setSocket(newSocket!));
+            };
+            newSocket.onmessage = (event) => {
+                const messageData = JSON.parse(event.data);
+                dispatch(setReceivedMessage(messageData));
 
-        newSocket.onmessage = (event) => {
-            console.log('Received message:', event.data);
-            const messageData: IMessage = JSON.parse(event.data)
-            setReceivedMessage(messageData);
-        };
-
-        newSocket.onclose = () => {
-            console.log('WebSocket connection closed.');
-        };
-
-        setSocket(newSocket);
-
-        return () => {
-            newSocket.close();
-        };
-    }, []);
-
-    const sendMessage = (message: string) => {
-        if (socket && message.trim() !== '') {
-            socket.send(message);
+            };
+            newSocket.onclose = () => {
+                console.log('WebSocket connection closed.');
+                dispatch(clearSocket());
+            };
         }
-    };
+    }, [dispatch, socket, userId]);
 
-    return { sendMessage, receivedMessage };
+
+    return socket;
 };
-

@@ -19,7 +19,7 @@ export const getUser = createAsyncThunk(
 );
 export const getUsers = createAsyncThunk(
     "users/getUsers",
-    async (query: string = "", { rejectWithValue }) => {
+    async (query: string | undefined = "", { rejectWithValue }) => {
         try {
             const { data } = await axios.get(API.getUsers(query));
             return data;

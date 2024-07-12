@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { Button } from './ui/Button';
-import { CustomSelect } from './ui/CustomSelect';
+import { SelectBox } from './ui/SelectBox';
 import { Input } from './ui/Input';
 
 import { ReactComponent as SearchIcon } from "../assets/img/search.svg";
@@ -35,7 +35,7 @@ export const SearchFilters = ({ filtersProps, filtersName }: SearchFiltersProps)
     const [search, setSearch] = useState(filters.input?.value)
 
 
-    const handleInputChange = (value: string, name: FilterType) => {
+    const handleInputChange = (value: string | number, name: FilterType) => {
         setFilters((prev) => ({
             ...prev, [name]: {
                 ...prev[name],
@@ -159,11 +159,11 @@ export const SearchFilters = ({ filtersProps, filtersName }: SearchFiltersProps)
                     filters.select ?
                         <div className="col-xl-3 col-lg-4 col-sm-6">
                             <div className="form-group input--lg">
-                                <CustomSelect
+                                <SelectBox
                                     selectValue={activeFilters.select.value}
                                     defaultValue={{ label: "All", value: "" }}
                                     options={filters.select.suggestions ? filters.select.suggestions.map((option) => ({ value: option, label: option })) : []}
-                                    onSelect={(value) => handleInputChange(value? value?.value : "", "select")}
+                                    onSelect={(value) => handleInputChange(value ? value?.value : "", "select")}
                                     placeholder={`Select ${filters.select.title}`}
                                 />
                             </div>

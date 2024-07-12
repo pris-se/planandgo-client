@@ -1,11 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { profileSlice } from './features/profile';
-import { userSlice } from './features/users';
-import { tasksSlice, taskSlice } from './features/tasks';
-import { eventSlice } from './features/events';
-import { settingsSlice } from './features/settings';
+import { configureStore } from '@reduxjs/toolkit';
 import { chatSlice, chatsSlice } from './features/chats';
+import { eventSlice } from './features/events';
 import { messageSlice, messagesSlice } from './features/messages';
+import { profileSlice } from './features/profile';
+import { settingsSlice } from './features/settings';
+import { taskSlice, tasksSlice } from './features/tasks';
+import { userSlice } from './features/users';
+import { websocketSlice } from './features/websocket/websocketSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,8 +19,20 @@ export const store = configureStore({
     chats: chatsSlice.reducer,
     chat: chatSlice.reducer,
     messages: messagesSlice.reducer,
-    message: messageSlice.reducer
+    message: messageSlice.reducer,
+    websocket: websocketSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+        serializableCheck: {
+            // Ignore these action types
+            ignoredActions: ['websocket/setSocket',],
+            // Ignore these field paths in all actions
+            ignoredActionPaths: ['websocket.socket', "meta.arg.body", "meta.arg"],
+            // Ignore these paths in the state
+            ignoredPaths: ['websocket.socket'],
+        },
+    }),
 })
 
 export type RootState = ReturnType<typeof store.getState>

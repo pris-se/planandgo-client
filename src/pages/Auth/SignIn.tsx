@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/ui/Input";
-import { Spinner } from "../../components/ui/Spinner";
 import { getMe, login, resetPassword } from "../../redux/features/profile";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
@@ -16,21 +15,24 @@ export const SignIn = () => {
     const navigate = useNavigate()
 
 
-    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-        console.log(email, password);
+    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (email && password) {
             try {
-                dispatch(login({ email, password }))
-
-            } catch (error) {
+                const res = await dispatch(login({ email, password })).unwrap()
+            } catch (error: any) {
                 console.log(error);
             }
         }
     }
     const resetPasswordHandler = () => {
         if (password === "1111") {
-            dispatch(resetPassword(email))
+            try {
+                dispatch(resetPassword(email))
+            } catch (error: any) {
+                console.log(error);
+                alert(error.message)
+            }
         }
     }
     useEffect(() => {
@@ -74,19 +76,17 @@ export const SignIn = () => {
                     />
                 </div>
                 <div className="col-12">
-                {
-						!isLoading ? (
-							<Button type="submit">Sign up</Button>
-						) : (
-							<Button disabled={true}><Spinner /></Button>
-						)
-					}
-                    <Button
-                        onClick={resetPasswordHandler}
-                        classes="link link--primary"
-                    >
-                        Forgot password?
-                    </Button>
+                    {
+                        <Button type="submit" isLoading={isLoading}>Sign in</Button>
+                    }
+                    <div className="mt-2 row-group justify-start">
+                        <Button
+                            onClick={resetPasswordHandler}
+                            classes="link link--primary"
+                        >
+                            Forgot password?
+                        </Button>
+                    </div>
                 </div>
             </div>
         </form>

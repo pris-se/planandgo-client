@@ -22,8 +22,6 @@ const EventList = ({ events }: { events: Event[] }) => {
 	sortedEvents.forEach((event) => {
 		const date = moment(event.end).format("DD MMM, yyyy");
 
-		console.log(date, event.end);
-
 		if (!groupedEvents[date]) {
 			groupedEvents[date] = [];
 		}

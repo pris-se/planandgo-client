@@ -122,6 +122,7 @@ input[type="radio"]:checked~.badge {
 	padding: var(--gap-sm);
 	padding-bottom: 0;
 }
+
 .card-image img {
 	border-radius: var(--def-radius);
 }
@@ -179,7 +180,7 @@ input[type="radio"]:checked~.badge {
 }
 
 
-.row.list-view > div {
+.row.list-view>div {
 	width: 100%;
 	flex: auto;
 }
@@ -211,6 +212,7 @@ input[type="radio"]:checked~.badge {
 .row.list-view .card .card-description {
 	-webkit-line-clamp: 3;
 }
+
 .row.list-view .card .badge {
 	height: var(--size-xs);
 	padding: 0 var(--gap-xs);
@@ -412,9 +414,11 @@ input[type="radio"]:checked~.badge {
 	border-right: 1px solid var(--grey-30);
 	height: 100%;
 }
+
 .chat-list .btn--create {
 	position: absolute;
 }
+
 .chat-list__header {
 	display: flex;
 	align-items: center;
@@ -642,3 +646,123 @@ input[type="radio"]:checked~.badge {
 	height: 100%;
 } */
 
+
+
+.editor-page {
+	display: flex;
+	flex-direction: row;
+	height: calc(100vh - var(--header-height));
+}
+
+.sidebar {
+	width: 300px;
+	background-color: var(--bg-color);
+	transition: transform 0.3s ease;
+	overflow: auto;
+}
+
+.sidebar-container {
+	padding: var(--gap-md);
+}
+
+.btn-sidebar-toggle {
+	background-color: var(--primary);
+	color: var(--white);
+	border: none;
+	border-radius: var(--def-radius);
+}
+
+.editor-sidebar-body {
+	padding: var(--gap-md) 0;
+}
+
+.templates-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.templates-list li {
+	margin-bottom: var(--gap-sm);
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.templates-list li label {
+	display: block;
+	transform: scale(0.46);
+}
+
+.editor-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--bg-light);
+	padding: var(--gap-lg);
+	overflow: auto;
+}
+
+.editor-content-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: var(--gap-md);
+	border-bottom: 1px solid var(--grey-30);
+}
+
+.editor-toolbar {
+	display: flex;
+	gap: var(--gap-sm);
+}
+
+
+.editor-canvas {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.editor-container {
+	width: 100%;
+	height: 100%;
+	padding: var(--gap-md);
+	background-color: var(--bg-color);
+	border-radius: var(--def-radius);
+	box-shadow: var(--shadow);
+	overflow: hidden;
+}
+
+.toolbar-group {
+	display: flex;
+	gap: var(--gap-sm);
+}
+
+
+.sidebar-toggle-js {
+	cursor: pointer;
+}
+
+.selectbox {
+	width: 100%;
+	margin-bottom: var(--gap-sm);
+}
+
+.upload-image-wrapper {
+	margin-top: var(--gap-md);
+}
+
+.upload-image {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	overflow: hidden;
+	border: 1px solid var(--grey-30);
+}
+
+.notification {
+	background: transparent;
+}

@@ -24,7 +24,7 @@ export const MessagesPage = () => {
     const { chats, isLoading: isChatsLoading } = useAppSelector(state => state.chats)
 
     const [selectedChat, setSelectedChat] = useState<IChat | null>(null)
-	const [createChatModalShow, setCreateChatModalShow] = useState(false);
+    const [createChatModalShow, setCreateChatModalShow] = useState(false);
 
     const [search, setSearch] = useState('');
     const [shownChats, setShownChats] = useState<IChat[]>(chats)
@@ -72,8 +72,6 @@ export const MessagesPage = () => {
 
     const getChatAvatar = (chat: IChat): string => {
         const recipient = findRecipient(chat)
-        console.log(recipient);
-        
         return chat?.thumbnail ? getImageUrl(chat?.thumbnail) : recipient?.avatar ? getImageUrl(recipient?.avatar) : placeholderImage
     }
 
@@ -100,14 +98,14 @@ export const MessagesPage = () => {
                                                 className={({ isActive }) => `${isActive ? "chat-item active" : "chat-item"}`}
                                                 to={chat._id}
                                             >
-                                                <div className={`indicator "indicator--${findRecipient(chat)?.status}`}>
+                                                <div className={`indicator indicator--${findRecipient(chat)?.status}`}>
                                                     <div className="chat-item__image ico image-wrapper">
-                                                        <img src={getChatAvatar(chat)} alt={chat.title} />
+                                                        <img src={getChatAvatar(chat)} alt={chat.title ? chat.title : findRecipient(chat)?.username} />
                                                     </div>
                                                 </div>
                                                 <div className="chat-item__details">
                                                     <div className="chat-item__heading row-group">
-                                                        <p className="chat-item__title">{chat.title}</p>
+                                                        <p className="chat-item__title">{chat.title ? chat.title : findRecipient(chat)?.username}</p>
                                                         <p className="chat-item__time">08.02.2022</p>
                                                     </div>
                                                     <div className="chat-item__message">
@@ -146,9 +144,9 @@ export const MessagesPage = () => {
                 }
             </div>
             {
-				createChatModalShow &&
-				<CreateChatModal show={createChatModalShow} onClose={() => setCreateChatModalShow(false)} />
-			}
+                createChatModalShow &&
+                <CreateChatModal show={createChatModalShow} onClose={() => setCreateChatModalShow(false)} />
+            }
         </>
     )
 }

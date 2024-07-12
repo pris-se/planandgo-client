@@ -12,6 +12,8 @@ import placeholderImage from "../../assets/img/placeholder.png"
 import { Loader } from '../../components/Loader';
 import { Button } from '../../components/ui/Button';
 import { TextArea } from '../../components/ui/TextArea';
+import moment from 'moment';
+import { sendMessage } from '../../redux/features/websocket/websocketSlice';
 
 
 export const MessagesBody = () => {
@@ -24,17 +26,19 @@ export const MessagesBody = () => {
     const { me, isLoading } = useAppSelector(state => state.profile)
     const { data: messagesData, isLoading: isMessagesLoading } = useAppSelector(state => state.messages)
     const { data: messageData, isLoading: isMessageLoading } = useAppSelector(state => state.message)
-    const { sendMessage, receivedMessage } = useWebSocket();
+    const { receivedMessage } = useAppSelector(state => state.websocket)
     const [messages, setMessages] = useState<IMessage[] | []>([])
     const [message, setMessage] = useState('');
 
 
     const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (!message.length || !me?._id || !chat?._id) return;
+        if (!message.length || !me?._id || !chat?._id || !chat?.members?.length) return;
+
         const data: IMessage = {
             _id: "",
             chatId: chat?._id,
+            recipients: chat?.members.map(member => member._id).filter(id => typeof id === "string") as string[],
             senderId: me?._id,
             content: message,
             createdAt: "",
@@ -42,9 +46,7 @@ export const MessagesBody = () => {
         }
         try {
             const res = await dispatch(createMessageFetch(data)).unwrap()
-            console.log(res.data, "res.data");
-
-            sendMessage(JSON.stringify(res.data));
+            dispatch(sendMessage(JSON.stringify(res.data)));
             setMessage('');
 
         } catch (error) {
@@ -72,8 +74,6 @@ export const MessagesBody = () => {
     useEffect(() => {
         if (!chatId) return;
         dispatch(getMessagesByChatIdFetch(chatId))
-        console.log(chat);
-
     }, [chatId])
 
     useEffect(() => {
@@ -84,17 +84,17 @@ export const MessagesBody = () => {
 
 
     useEffect(() => {
+        console.log(receivedMessage, "receivedMessage");
         if (receivedMessage) {
             const messagesCopy = [...messages]
             messagesCopy.push(receivedMessage)
-            console.log(messagesCopy);
             setMessages(messagesCopy)
         }
     }, [receivedMessage, isMessageLoading])
 
 
     useEffect(() => {
-        if(!messagesData) return;
+        if (!messagesData) return;
         setMessages(messagesData)
     }, [messagesData, isMessagesLoading])
 
@@ -123,7 +123,10 @@ export const MessagesBody = () => {
                                 <div className="message-image ico image-wrapper">
                                     <img src={getChatAvatar()} alt={me.username} />
                                 </div>
-                                <h3>{chat.title}</h3>
+                                <div className='col-group'>
+                                    <h4>{chat.title ? chat.title : getRecipient()?.username}</h4>
+                                    <p className='text-info'>Last seen {getRecipient()?.lastSeen ? moment(getRecipient()?.lastSeen).format("DD MMM, YYYY") : "a while ago"}</p>
+                                </div>
                             </div>
                         </div>
                         <div className="messages-body">

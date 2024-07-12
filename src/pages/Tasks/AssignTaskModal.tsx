@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Duration } from "../../components/Duration";
 import { Modal } from "../../components/modals/Modal";
 import { Button } from "../../components/ui/Button";
-import { CustomSelect } from "../../components/ui/CustomSelect";
+import { SelectBox } from "../../components/ui/SelectBox";
 import { InputDate } from "../../components/ui/InputDate";
 import { Event, Task } from "../../interfaces";
 import { createEvent } from "../../redux/features/events";
@@ -105,7 +105,7 @@ export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
 							/>
 						</div>
 						<div className="col-6">
-							<CustomSelect
+							<SelectBox
 								selectValue={status}
 								options={["todo", "in_progress", "done", "cancelled"].map((option) => ({ value: option, label: option.charAt(0).toUpperCase() + option.slice(1) }))}
 								onSelect={(value) => setStatus(value ? value?.value as Event["status"] : null)}
@@ -113,7 +113,7 @@ export const AssignTaskModal = ({ task, show, onClose }: IProps) => {
 							/>
 						</div>
 						<div className="col-6">
-							<CustomSelect
+							<SelectBox
 								selectValue={priority}
 								options={["low", "medium", "high"].map((option) => ({ value: option, label: option.charAt(0).toUpperCase() + option.slice(1) }))}
 								onSelect={(value) => setPriority(value ? value?.value as Event["priority"] : null)}

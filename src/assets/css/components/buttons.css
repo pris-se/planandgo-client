@@ -45,6 +45,12 @@
     color: var(--primary);
 }
 
+.btn--outline-warning {
+    background-color: transparent;
+    border-color: var(--warning);
+    color: var(--warning);
+}
+
 .btn--outline-grey-30 {
     background-color: transparent;
     border-color: var(--grey-30);
@@ -65,6 +71,7 @@
 .btn--sm {
     padding: 4px 11px;
     --btn-height: var(--btn-sm);
+    --ico-size: 16px;
 }
 
 .btn--md {
@@ -116,7 +123,8 @@
     display: inline-flex;
     transition: all 0.6s ease;
     gap: var(--gap-xs);
-} 
+}
+
 .link.link--primary {
     color: var(--primary);
 }

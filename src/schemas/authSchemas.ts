@@ -2,10 +2,10 @@ import { ObjectSchema, array, boolean, date, object, string } from 'yup';
 import { User } from '../interfaces';
 
 
-export type UserResolver = Pick<User, Exclude<keyof User, 'avatar'>> & { avatar?: File | string | FileList  };
+export type UserResolver = Pick<User, Exclude<keyof User, 'avatar' | 'lastSeen'>> & {
+  avatar?: File | string | FileList;
+};
 
-
-  
 export const UserSchema: ObjectSchema<UserResolver> = object({
     _id: string().optional(),
     username: string().required('Username is required'),
@@ -38,6 +38,6 @@ export const UserSchema: ObjectSchema<UserResolver> = object({
     subscriptions: array().of(string().defined()).optional(),
     status: string().oneOf(['online', 'offline']).default('offline').optional(),
     role: string().oneOf(['admin', 'client']).default('client').optional(),
-    createdAt: string().optional()
+    createdAt: string().optional(),
   });
   
