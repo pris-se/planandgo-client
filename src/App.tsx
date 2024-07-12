@@ -14,7 +14,8 @@ function App() {
 
 	useEffect(() => {
 		const chatIdFromUrl = window.location.href.split('/').pop();
-		if (receivedMessage && receivedMessage?.senderId !== me?._id && chatIdFromUrl !== receivedMessage?.chatId) {
+		// if (receivedMessage && receivedMessage?.senderId !== me?._id && chatIdFromUrl !== receivedMessage?.chatId) {
+		if (receivedMessage) {
 			const { content, sender, chatId } = receivedMessage;
 
 			const notificationContent = (
@@ -36,8 +37,8 @@ function App() {
 				draggable: true,
 				closeOnClick: true,
 				bodyClassName: 'notification',
-				autoClose: 100000,
-			})
+				autoClose: 5000,
+			}) 
 		}
 	}, [receivedMessage])
 
