@@ -81,7 +81,7 @@ export const MessagesPage = () => {
         <>
             <div className="messages-page">
                 {
-                    isMobile && !chatId ?
+                    (isMobile && !chatId) || (!isMobile) ?
                         <aside className={`chat-list ${isMobile ? "!flex-auto" : ""}`}>
                             <div className="chat-list__header">
                                 <Input
