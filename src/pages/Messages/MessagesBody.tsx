@@ -14,6 +14,7 @@ import { Button } from '../../components/ui/Button';
 import { TextArea } from '../../components/ui/TextArea';
 import moment from 'moment';
 import { sendMessage } from '../../redux/features/websocket/websocketSlice';
+import { Link } from 'react-router-dom';
 
 
 export const MessagesBody = () => {
@@ -112,14 +113,20 @@ export const MessagesBody = () => {
         return recipient?.avatar ? getImageUrl(recipient?.avatar) : placeholderImage
     }
 
+    const isMobile = window.innerWidth < 992
 
     return (
-        <div className="messages">
+        <div className={`messages`}>
             {
                 chat ?
                     <>
                         <div className="messages-header">
                             <div className='row-group gap--md'>
+                                {
+                                    isMobile ?
+                                    <Link to={"/messages"} className='btn btn--md btn--primary rounded'>Back</Link>
+                                    : null
+                                }
                                 <div className="message-image ico image-wrapper">
                                     <img src={getChatAvatar()} alt={me.username} />
                                 </div>

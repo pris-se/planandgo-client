@@ -75,72 +75,78 @@ export const MessagesPage = () => {
         return chat?.thumbnail ? getImageUrl(chat?.thumbnail) : recipient?.avatar ? getImageUrl(recipient?.avatar) : placeholderImage
     }
 
+    const isMobile = window.innerWidth < 992
+
     return (
         <>
             <div className="messages-page">
-                <aside className="chat-list">
-                    <div className="chat-list__header">
-                        <Input
-                            onChange={(e) => handleSearchChat(e.target.value)}
-                            title='Search chats...'
-                            classes='w-full'
-                        />
-                    </div>
-                    {
-                        !isChatsLoading && chats.length ?
-                            <ul className="chat-list__body">
-                                {
-                                    chats.map(chat => (
-                                        <li
-                                            key={chat._id}
-                                        >
-                                            <NavLink
-                                                className={({ isActive }) => `${isActive ? "chat-item active" : "chat-item"}`}
-                                                to={chat._id}
-                                            >
-                                                <div className={`indicator indicator--${findRecipient(chat)?.status}`}>
-                                                    <div className="chat-item__image ico image-wrapper">
-                                                        <img src={getChatAvatar(chat)} alt={chat.title ? chat.title : findRecipient(chat)?.username} />
-                                                    </div>
-                                                </div>
-                                                <div className="chat-item__details">
-                                                    <div className="chat-item__heading row-group">
-                                                        <p className="chat-item__title">{chat.title ? chat.title : findRecipient(chat)?.username}</p>
-                                                        <p className="chat-item__time">08.02.2022</p>
-                                                    </div>
-                                                    <div className="chat-item__message">
-                                                        {
-                                                            chat.lastMessage ?
-                                                                chat.lastMessage.content
-                                                                : "No messages yet..."
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </NavLink>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                            : !isChatLoading && !chats.length ?
-                                <div className='chat-list__body items-center justify-center'>
-                                    <p>There is no chats yet...</p>
-                                </div>
-                                :
-                                <Loader />
-                    }
-                    <Button
-                        onClick={() => setCreateChatModalShow(true)}
-                        className="btn btn--create btn--square"
-                    >
-                        <PlusIcon />
-                    </Button>
-                </aside>
+                {
+                    isMobile && !chatId ?
+                        <aside className={`chat-list ${isMobile ? "!flex-auto" : ""}`}>
+                            <div className="chat-list__header">
+                                <Input
+                                    onChange={(e) => handleSearchChat(e.target.value)}
+                                    title='Search chats...'
+                                    classes='w-full'
+                                />
+                            </div>
+                            {
+                                !isChatsLoading && chats.length ?
+                                    <ul className="chat-list__body">
+                                        {
+                                            chats.map(chat => (
+                                                <li
+                                                    key={chat._id}
+                                                >
+                                                    <NavLink
+                                                        className={({ isActive }) => `${isActive ? "chat-item active" : "chat-item"}`}
+                                                        to={chat._id}
+                                                    >
+                                                        <div className={`indicator indicator--${findRecipient(chat)?.status}`}>
+                                                            <div className="chat-item__image ico image-wrapper">
+                                                                <img src={getChatAvatar(chat)} alt={chat.title ? chat.title : findRecipient(chat)?.username} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="chat-item__details">
+                                                            <div className="chat-item__heading row-group">
+                                                                <p className="chat-item__title">{chat.title ? chat.title : findRecipient(chat)?.username}</p>
+                                                                <p className="chat-item__time">08.02.2022</p>
+                                                            </div>
+                                                            <div className="chat-item__message">
+                                                                {
+                                                                    chat.lastMessage ?
+                                                                        chat.lastMessage.content
+                                                                        : "No messages yet..."
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </NavLink>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                    : !isChatLoading && !chats.length ?
+                                        <div className='chat-list__body items-center justify-center'>
+                                            <p>There is no chats yet...</p>
+                                        </div>
+                                        :
+                                        <Loader />
+                            }
+                            <Button
+                                onClick={() => setCreateChatModalShow(true)}
+                                className="btn btn--create btn--square"
+                            >
+                                <PlusIcon />
+                            </Button>
+                        </aside>
+                        : null
+                }
                 {
                     chatId ?
                         <Outlet context={selectedChat} />
-                        :
-                        <p className='m-auto'>Select chat to start messaging</p>
-
+                        : !isMobile ?
+                            <p className='m-auto'>Select chat to start messaging</p>
+                            : null
                 }
             </div>
             {
